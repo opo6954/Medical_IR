@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using OpenCvSharp.Extensions;
+using OpenCvSharp.CPlusPlus;
+using OpenCvSharp.UserInterface;
+
 /*
  * ROI 선택하는 함수임
  * 일단 이 함수에서는 기본적인 WPF 상에서의 Point를 가져오고, 
@@ -25,11 +29,12 @@ namespace ImageRetrievalEngineUI
                 
 
         //ROI 클릭 후 첫 시작 위치
-        Point startPos;
+        System.Windows.Point startPos;
         //드롭을 할 때의 ROI 최종 위치
-        Point lastPos;
+        System.Windows.Point lastPos;
 
         public ROIRegion currROI;
+        public ROIRegion currROIOnImage;
 
 
         public ROISelector(CenterController _cc)
@@ -60,7 +65,7 @@ namespace ImageRetrievalEngineUI
             }
         }
         //처음에 ROI 누를 경우, 시작함
-        public bool isClickROI(Point pos)
+        public bool isClickROI(System.Windows.Point pos)
         {
             if (isStartROI == false && isROICreateMode == true)
             {
@@ -72,7 +77,7 @@ namespace ImageRetrievalEngineUI
             return false;
         }
 
-        public bool isMoveROI(Point pos)
+        public bool isMoveROI(System.Windows.Point pos)
         {
             if (isStartROI == true)
             {
@@ -99,7 +104,7 @@ namespace ImageRetrievalEngineUI
             return false;
         }
         //마우스를 뗄 때의 행동, currROI를
-        public bool isUpROI(Point pos)
+        public bool isUpROI(System.Windows.Point pos)
         {
             if (isStartROI == true)
             {
@@ -129,6 +134,7 @@ namespace ImageRetrievalEngineUI
 
         public void sendROI()
         {
+            System.Drawing.Image image = cc.queryImg;
             
         }
 

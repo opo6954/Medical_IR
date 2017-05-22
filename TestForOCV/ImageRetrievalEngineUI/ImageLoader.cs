@@ -7,6 +7,10 @@ using System.Media;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 
+using OpenCvSharp.Extensions;
+using OpenCvSharp.CPlusPlus;
+using OpenCvSharp.UserInterface;
+
 
 
 
@@ -36,6 +40,7 @@ namespace ImageRetrievalEngineUI
     class ImageLoader
     {
         public Image queryImg;
+        public Mat img;
         CenterController cc;
 
         public ImageLoader(CenterController _cc)
@@ -46,10 +51,13 @@ namespace ImageRetrievalEngineUI
         //image를 path로부터 불러오는 함수
         public bool loadImage(string fileName)
         {
+            
             if (System.IO.File.Exists(fileName) == false)
                 return false;
 
             queryImg = Image.FromFile(fileName);
+
+            img = Cv2.ImRead(fileName);
 
             cc.queryImg = queryImg;
 
@@ -63,8 +71,9 @@ namespace ImageRetrievalEngineUI
             cc.setTxtbox(cc.myWindow.FileNameBox, tmpStr[tmpStr.Length-1]);
             cc.setTxtbox(cc.myWindow.TypeNameBox, "CXR");
             cc.setTxtbox(cc.myWindow.ResolutionBox, queryImg.Size.Width.ToString() + " X " + queryImg.Size.Height.ToString());
-
+            
             return true;
+             
         }
     }
 }

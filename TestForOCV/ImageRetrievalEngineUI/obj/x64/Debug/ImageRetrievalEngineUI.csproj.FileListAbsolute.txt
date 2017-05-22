@@ -13,3 +13,8 @@ D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestF
 D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.pdb
 D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\DebugWindow.baml
 D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\DebugWindow.g.cs
+D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.Blob.dll
+D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.CPlusPlus.dll
+D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.dll
+D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.Extensions.dll
+D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.UserInterface.dll
