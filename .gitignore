@@ -45,3 +45,29 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+TestForOCV/TestForOCV/TestForOCV.vcxproj
+TestForOCV/RetrievalEngineDll/x64/Debug/RetrievalEngineDll.lastbuildstate
+TestForOCV/RetrievalEngineDll/x64/Debug/RetrievalEngineDll.log
+TestForOCV/TestForOCV/x64/Debug/Euclidean.obj
+TestForOCV/TestForOCV/x64/Debug/LBP.obj
+TestForOCV/TestForOCV/x64/Debug/main.obj
+TestForOCV/TestForOCV/x64/Debug/TestForOCV.log
+TestForOCV/x64/Debug/TestForOCV.exe
+TestForOCV/x64/Debug/TestForOCV.ilk
+TestForOCV/x64/Debug/TestForOCV.pdb
+TestForOCV/TestForOCV/TestForOCV.vcxproj
+TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/App.g.i.cs
+TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/ImageRetrievalEngineUI_MarkupCompile.i.cache
+*.cs
+*.vcxproj
+*.filters
+*.exe
+*.ilk
+*.pdb
+*.cs
+*.cache
+*.vcxproj
+*.user
+*.db
+*.opendb
