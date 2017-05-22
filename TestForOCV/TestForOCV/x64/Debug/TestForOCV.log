@@ -1,4 +1,4 @@
-﻿빌드 시작: 2017-05-22 오전 11:10:59
+﻿빌드 시작: 2017-05-22 오후 12:32:55
      1>2 노드의 "D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\TestForOCV\TestForOCV.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../3rd/ocv/inc /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt main.cpp
@@ -12,4 +12,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:01.57
+경과 시간: 00:00:02.59

@@ -24,5 +24,33 @@ namespace ImageRetrievalEngineUI
         {
             InitializeComponent();
         }
+
+        //click button to image open
+        private void OpenImg_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            if (result == true)
+            {
+
+            }
+
+        }
+        //click button to select ROI
+        private void SelectROI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        //click button to search Image
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
