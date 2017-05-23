@@ -52,7 +52,6 @@ namespace ImageRetrievalEngineUI
                 }
                 
             }
-
         }
 
         //click button to search Image

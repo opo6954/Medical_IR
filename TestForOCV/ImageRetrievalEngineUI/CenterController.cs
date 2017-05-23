@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows;
+
+
+using OpenCvSharp.Extensions;
+using OpenCvSharp.CPlusPlus;
+using OpenCvSharp.UserInterface;
+
 /*
  * 중앙에서 관련 처리를 담당하는 클래스임
  * */
@@ -33,6 +40,8 @@ namespace ImageRetrievalEngineUI
 
 
         public Image queryImg;
+        public Mat queryImgMat;
+        public Mat queryImgMat_ROI;
 
         public MainWindow myWindow;
 
@@ -117,6 +126,31 @@ namespace ImageRetrievalEngineUI
                         imgOnControl.Source = targetImage;
                     }));
         }
+
+
+        //set image with respect to wb
+        public void drawImage(WriteableBitmap wb, Mat source)
+        {
+            wb.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate()
+                    {
+                        WriteableBitmapConverter.ToWriteableBitmap(source, wb);
+                    }));
+        }
+        // set image wrt C# image control
+        public void drawImage(System.Windows.Controls.Image imageInstance, Mat source)
+        {
+            imageInstance.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate()
+                    {
+                        WriteableBitmap wb = new WriteableBitmap(source.Width, source.Height, 72, 72, PixelFormats.Bgr24, null);
+                        WriteableBitmapConverter.ToWriteableBitmap(source, wb);
+                        imageInstance.Source = wb;
+                    }));
+        }
+
         //set text box to given txt
         public void setTxtbox(System.Windows.Controls.TextBox txtOnControl, string txt)
         {
@@ -127,6 +161,18 @@ namespace ImageRetrievalEngineUI
                         txtOnControl.Text = txt;
                     }));
         }
+
+        //set text block to given txt
+        public void setTxtbox(System.Windows.Controls.TextBlock txtOnControl, string txt)
+        {
+            txtOnControl.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate()
+                    {
+                        txtOnControl.Text = txt;
+                    }));
+        }
+
     }
 
 

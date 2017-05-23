@@ -66,7 +66,6 @@
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -80,7 +79,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
  
                         <Label Content="Size" Grid.Row="0" Grid.Column="0"></Label>
@@ -88,10 +87,18 @@
                         <Label Content="Position" Grid.Row="1" Grid.Column="0"></Label>
                         <TextBlock x:Name="ROIPos" Text="100" Grid.Row="1" Grid.Column="1"></TextBlock>
                     </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="NewROI"  Content="New ROI" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Width="70" Height="20" Margin="0,10,0,0" Click="NewROI_Click_1"></Button>
+                        <Button x:Name="ROI"  Content="Modify ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Width="70" Height="20" Margin="0,0,0,10" Click="ROI_Click_1"></Button>
+                        <Button x:Name="DeleteROI"  Content="Delete ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="70" Height="20" Margin="0,0,0,10" Click="DeleteROI_Click_1"></Button>
+                    </Grid>
+
                     
-                    <Button x:Name="NewROI"  Content="New ROI" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1" Width="70" Height="20" Margin="0,0,0,10" Click="NewROI_Click_1"></Button>
-                    <Button x:Name="ROI"  Content="Modify ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Width="70" Height="20" Margin="0,0,0,10" Click="ROI_Click_1"></Button>
-                    <Button x:Name="DeleteROI"  Content="Delete ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="70" Height="20" Margin="0,0,0,10" Click="DeleteROI_Click_1"></Button>
                     
 
                 </Grid>

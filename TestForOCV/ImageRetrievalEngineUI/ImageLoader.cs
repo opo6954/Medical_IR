@@ -11,36 +11,12 @@ using OpenCvSharp.Extensions;
 using OpenCvSharp.CPlusPlus;
 using OpenCvSharp.UserInterface;
 
-
-
-
-/*
- * Query Image 불러오기
- * 
- * private void btn_browse_Click(object sender, System.EventArgs e)
-        {
-            try
-            {
-                OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-               if (open.ShowDialog() == DialogResult.OK)
-                {
-                    Bitmap bit = new Bitmap(open.FileName);
-                 pictureBox1.Image = bit;
-                }
-            }
-            catch (Exception)
-            {
-                throw new ApplicationException("Failed loading image");
-            }
-        }
- * */
 namespace ImageRetrievalEngineUI
 {
     class ImageLoader
     {
         public Image queryImg;
-        public Mat img;
+        public Mat queryimgMat;
         CenterController cc;
 
         public ImageLoader(CenterController _cc)
@@ -57,9 +33,10 @@ namespace ImageRetrievalEngineUI
 
             queryImg = Image.FromFile(fileName);
 
-            img = Cv2.ImRead(fileName);
+            queryimgMat = Cv2.ImRead(fileName);
 
             cc.queryImg = queryImg;
+            cc.queryImgMat = queryimgMat.Clone();
 
             cc.drawImage(cc.myWindow.QueryImg,new BitmapImage(new Uri(fileName)));
             cc.drawImage(cc.myWindow.ZoomedImage, new BitmapImage(new Uri(fileName)));

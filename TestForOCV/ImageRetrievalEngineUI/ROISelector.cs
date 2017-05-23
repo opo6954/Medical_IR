@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Drawing;
+
+
 using OpenCvSharp.Extensions;
 using OpenCvSharp.CPlusPlus;
 using OpenCvSharp.UserInterface;
@@ -36,6 +40,14 @@ namespace ImageRetrievalEngineUI
         public ROIRegion currROI;
         public ROIRegion currROIOnImage;
 
+        //실제 original image의 resolution
+        int resX, resY;
+
+        //UI 상에 보이는 image의 resolution
+        int imgX, imgY;
+
+        Mat roiRegion;
+
 
         public ROISelector(CenterController _cc)
         {
@@ -57,6 +69,16 @@ namespace ImageRetrievalEngineUI
             if (isROICreateMode == false)
             {
                 isROICreateMode = true;
+
+                if (cc.queryImgMat.Empty() == false)
+                {
+                    resX = cc.queryImgMat.Size().Width;
+                    resY = cc.queryImgMat.Size().Height;
+
+                    imgX = System.Convert.ToInt32(cc.myWindow.ZoomedImage.ActualWidth);
+                    imgY = System.Convert.ToInt32(cc.myWindow.ZoomedImage.ActualHeight);
+
+                }
                 return true;
             }
             else
@@ -79,6 +101,9 @@ namespace ImageRetrievalEngineUI
 
         public bool isMoveROI(System.Windows.Point pos)
         {
+            
+            cc.setTxtbox(cc.myWindow.ROIPos, System.Convert.ToInt32(pos.X).ToString() + " , " + System.Convert.ToInt32(pos.Y).ToString());
+
             if (isStartROI == true)
             {
                 lastPos = pos;
@@ -97,6 +122,10 @@ namespace ImageRetrievalEngineUI
                 rectangle.Width = width;
                 rectangle.Height = height;
 
+                cc.setTxtbox(cc.myWindow.ROISize, width.ToString() + " / " +  height.ToString());
+                cc.setTxtbox(cc.myWindow.ROIPos, x.ToString() + " , " + y.ToString());
+
+
                 cc.drawRectangle(cc.myWindow.ROIDrawCanvas,rectangle,x,y);
 
                 return true;
@@ -108,6 +137,7 @@ namespace ImageRetrievalEngineUI
         {
             if (isStartROI == true)
             {
+                
                 lastPos = pos;
 
                 currROI.x = System.Convert.ToInt32(startPos.X);
@@ -115,9 +145,38 @@ namespace ImageRetrievalEngineUI
                 currROI.w = System.Convert.ToInt32(Math.Abs(lastPos.X - startPos.X));
                 currROI.h = System.Convert.ToInt32(Math.Abs(lastPos.Y - startPos.Y));
 
-                isROICreateMode = false;
 
+                isROICreateMode = false;
                 isStartROI = false;
+
+                //이 부분에서 ROI 설정이 모두 된 것 이니까 실제 이미지 상에서의 ROI를 계산하자
+
+
+                currROIOnImage.x = System.Convert.ToInt32((currROI.x / (double)imgX) * resX);
+                currROIOnImage.y = System.Convert.ToInt32((currROI.y / (double)imgY) * resY);
+
+                currROIOnImage.w = System.Convert.ToInt32((currROI.w / (double)imgX) * resX);
+                currROIOnImage.h = System.Convert.ToInt32((currROI.h / (double)imgY) * resY);
+
+                
+
+
+
+
+                cc.setTxtbox(cc.myWindow.ROISize, currROIOnImage.w.ToString() + " / " + currROIOnImage.h.ToString());
+
+
+                calculateROI();
+
+
+
+
+                
+
+                
+
+
+
             }
             return true;
         }
@@ -129,8 +188,21 @@ namespace ImageRetrievalEngineUI
             currROI.w = -1;
             currROI.h = -1;
 
+            roiRegion = new Mat(new OpenCvSharp.CPlusPlus.Size(resX, resY), MatType.CV_8UC3);
+
+            cc.drawImage(cc.myWindow.ROIImg, roiRegion.Clone());
+
             return cc.deleteRectangle(cc.myWindow.ROIDrawCanvas, rectangle);
         }
+
+        public void calculateROI()
+        {
+            roiRegion = new Mat(cc.queryImgMat, new OpenCvSharp.CPlusPlus.Rect(currROIOnImage.x, currROIOnImage.y, currROIOnImage.w, currROIOnImage.h));
+
+            cc.drawImage(cc.myWindow.ROIImg, roiRegion.Clone());             
+        }
+
+
 
         public void sendROI()
         {
