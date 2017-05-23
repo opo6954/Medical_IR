@@ -1,8 +1,184 @@
 ﻿<Window x:Class="ImageRetrievalEngineUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Medical Image Retrieval Engine ver0.1" Height="800" Width="800" >
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="25*" />            
+        </Grid.RowDefinitions>        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="30*"/>                
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.8*"/>
+                    
+                </Grid.RowDefinitions>
+                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Query Image" Grid.Row="0"></Label>
+                <Image x:Name="QueryImg" Grid.Row="1" Width="150" Height="150" ></Image>
+                <Button x:Name="OpenImg" VerticalAlignment="Center" Content="Open Image" Grid.Row="2" Width="100" Height="20" Click="OpenImg_Click"></Button>
+                
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>                        
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>                        
+                    </Grid.ColumnDefinitions>
+                    <Label Content="FileName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" ></Label>
+                    <TextBox x:Name="FileNameBox" IsReadOnly="True" Text="powerover" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1"></TextBox>
+
+                    <Label Content="Type" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></Label>
+                    <TextBox x:Name="TypeNameBox"  IsReadOnly="True" Text="whelm" Grid.Row="1" Grid.Column="1"></TextBox>
+                    <Label Content="Resolution" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2"></Label>
+                    <TextBox x:Name="ResolutionBox" IsReadOnly="True" Text="ming" Grid.Row="2" Grid.Column="1"></TextBox>
+                </Grid>
+                
+                    
+                
+                
+
+            </Grid>
+            
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    
+                </Grid.RowDefinitions>
+
+                <Label HorizontalAlignment="Center" Grid.Row="0"  Content="ROI Image" ></Label>
+                <Image x:Name="ROIImg" Grid.Row="1" Width="200" Height="200" ></Image>
+                
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+ 
+                        <Label Content="Size" Grid.Row="0" Grid.Column="0"></Label>
+                        <TextBlock x:Name="ROISize" Text="100" Grid.Row="0" Grid.Column="1"></TextBlock>
+                        <Label Content="Position" Grid.Row="1" Grid.Column="0"></Label>
+                        <TextBlock x:Name="ROIPos" Text="100" Grid.Row="1" Grid.Column="1"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="NewROI"  Content="New ROI" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Width="70" Height="20" Margin="0,10,0,0" Click="NewROI_Click_1"></Button>
+                        <Button x:Name="ROI"  Content="Modify ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Width="70" Height="20" Margin="0,0,0,10" Click="ROI_Click_1"></Button>
+                        <Button x:Name="DeleteROI"  Content="Delete ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="70" Height="20" Margin="0,0,0,10" Click="DeleteROI_Click_1"></Button>
+                    </Grid>
+
+                    
+                    
+
+                </Grid>
+                
+                
+                
+
+            </Grid>
+            
+            
+            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.2*"/>                    
+                </Grid.RowDefinitions>
+                <Label HorizontalAlignment="Center" Content="Zoomed Image" Grid.Row="0"></Label>
+                <ScrollViewer x:Name="myScroll" ScrollChanged="myScroll_ScrollChanged_1" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+                    <Canvas x:Name="ROIDrawCanvas" Width="300" Height="300" AllowDrop="True"  PreviewMouseLeftButtonDown="ZoomedImage_PreviewMouseLeftButtonDown_1" PreviewMouseLeftButtonUp="ZoomedImage_PreviewMouseLeftButtonUp_1" PreviewMouseMove="ZoomedImage_PreviewMouseMove_1" MouseWheel="ZoomedImage_MouseWheel_1">
+                    <Image x:Name="ZoomedImage" Stretch="Fill" Width="300" Height="300" AllowDrop="True"/>
+                    </Canvas>
+                </ScrollViewer>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Center Position" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock x:Name="CenterPosition" Text="NULL" Grid.Row="0" Grid.Column="1"></TextBlock>
+                    <Label Content="Zoomed Scale" Grid.Row="1" Grid.Column="0"></Label>
+                    <TextBlock x:Name="ZoomScale" Text="NULL" Grid.Row="1" Grid.Column="1"></TextBlock>
+                </Grid>
+                
+                
+                
+                
+
+            </Grid>
+            
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="158*"/>
+                <ColumnDefinition Width="158*"/>
+                <ColumnDefinition Width="159*"/>
+                <ColumnDefinition Width="158*"/>
+                <ColumnDefinition Width="159*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Search Image" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="37,0"></Label>
+            <Label Content="1st" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="66,0"></Label>
+            <Label Content="2nd" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="64,0"></Label>
+            <Label Content="3rd" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="66,0,65,0"></Label>
+            <Label Content="4th" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Margin="65,0"></Label>
+            <Label Content="5th" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="4" Margin="65,0,66,0"></Label>
+            <Label Content="ROI Image" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="45,0"></Label>
+            <Button x:Name="SearchButton" Grid.Row="0" Grid.Column="2" Content="Search for ROI"  HorizontalAlignment="Center" Width="100" Height="20" Click="SearchButton_Click" Margin="30,9,29,9"/>
+            <Image x:Name="SearchImg1" Grid.Row="2" Grid.Column="0" Width="100" Height="100" Margin="29,21"></Image>
+            <Image x:Name="SearchImg2" Grid.Row="2" Grid.Column="1" Width="100" Height="100" Margin="29,21"/>
+            <Image x:Name="SearchImg3" Grid.Row="2" Grid.Column="2" Width="100" Height="100" Margin="30,21,29,21"></Image>
+            <Image x:Name="SearchImg4" Grid.Row="2" Grid.Column="3" Width="100" Height="100" Margin="29,21"></Image>
+            <Image x:Name="SearchImg5" Grid.Row="2" Grid.Column="4" Width="100" Height="100" Margin="29,21,30,21"></Image>
+
+            <Image x:Name="SearchROIImg1" Grid.Row="4" Grid.Column="0" Width="50" Height="50" Margin="54,23,54,22"></Image>
+            <Image x:Name="SearchROIImg2" Grid.Row="4" Grid.Column="1" Width="50" Height="50" Margin="54,23,54,22"></Image>
+            <Image x:Name="SearchROIImg3" Grid.Row="4" Grid.Column="2" Width="50" Height="50" Margin="54,23,55,22"></Image>
+            <Image x:Name="SearchROIImg4" Grid.Row="4" Grid.Column="3" Width="50" Height="50" Margin="54,23,54,22"></Image>
+            <Image x:Name="SearchROIImg5" Grid.Row="4" Grid.Column="4" Width="50" Height="50" Margin="55,23,54,22"></Image>
+
+        </Grid>
     </Grid>
 </Window>
