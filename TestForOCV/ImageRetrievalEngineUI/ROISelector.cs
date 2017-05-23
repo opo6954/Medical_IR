@@ -167,6 +167,7 @@ namespace ImageRetrievalEngineUI
 
 
                 calculateROI();
+                sendROI();
 
 
 
@@ -197,16 +198,18 @@ namespace ImageRetrievalEngineUI
 
         public void calculateROI()
         {
-            roiRegion = new Mat(cc.queryImgMat, new OpenCvSharp.CPlusPlus.Rect(currROIOnImage.x, currROIOnImage.y, currROIOnImage.w, currROIOnImage.h));
-
-            cc.drawImage(cc.myWindow.ROIImg, roiRegion.Clone());             
+            if (currROIOnImage.x > 0 && currROIOnImage.x + currROIOnImage.w < resX && currROIOnImage.y > 0 && currROIOnImage.y + currROIOnImage.h < resY)
+            {
+                roiRegion = new Mat(cc.queryImgMat, new OpenCvSharp.CPlusPlus.Rect(currROIOnImage.x, currROIOnImage.y, currROIOnImage.w, currROIOnImage.h));
+                cc.drawImage(cc.myWindow.ROIImg, roiRegion.Clone());
+            }
         }
 
 
 
         public void sendROI()
         {
-            System.Drawing.Image image = cc.queryImg;
+            cc.queryImgMat_ROI = roiRegion.Clone();
             
         }
 
