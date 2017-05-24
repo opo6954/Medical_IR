@@ -280,8 +280,12 @@ c#에도 search space에 대한 array 정보를 가지고 있어야 겠지요
 bool retrievalCurrImage(unsigned char* img, int width, int height, int n, int* ID, int* ROISeq)
 {
 	//만일 retrieval init이 되어 있는 경우에만 retrieval를 수행합니다
+
+	cout << "Retrieval engine..." << endl;
 	if(isInitRetrieval == true)
 	{
+		cout << "Inside retrieval engine..." << endl;
+
 		if(searchSpaceImageInfo.size() <= 0)
 		{
 			cout << "No search space imageInfo exist..." << endl;

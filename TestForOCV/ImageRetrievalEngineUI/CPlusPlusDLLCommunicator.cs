@@ -22,7 +22,7 @@ namespace ImageRetrievalEngineUI
         //원래는 parameter.ini에서 직접 불러서 해야 합니다
 
         //search할 부분의 가장 root가 되는 path임
-        public static string searchRootPath ="../searchImg/";
+        public static string searchRootPath ="../../../../data/searchImg/";
 
         //search할 image의 list가 담긴 txt의 path
         public static string searchImgListName = "imgList.txt";

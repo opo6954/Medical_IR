@@ -34,6 +34,8 @@ namespace ImageRetrievalEngineUI
 
         List<searchImgInfo> searchSpaceIdxMappingTable = new List<searchImgInfo>();
 
+        bool isInitRetrieval = false;
+
 
         public ImageRetriever(CenterController _cc)
         {
@@ -45,8 +47,21 @@ namespace ImageRetrievalEngineUI
         {
             //일단 txt파일로부터 vector of ID and ROI를 읽어야 합니다
 
+            //그 전에 dll의 init 읽자
+            //LHWLHWLHWLHW
+
+            CPlusPlusDLLCommunicator.initDescriptors();
+            isInitRetrieval = CPlusPlusDLLCommunicator.initRetrieval(CPlusPlusDLLCommunicator.searchRootPath, CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchVectorPath + "/");
+                
+
             string imgFileName = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchImgPath + "/" + CPlusPlusDLLCommunicator.searchImgListName;
             string roiFileName = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchROIPath + "/" + CPlusPlusDLLCommunicator.searchROIListName;
+
+            if (isInitRetrieval == false)
+            {
+                MessageBox.Show("Wrong with init feature vector inside dll....");
+                return false;
+            }
 
             if (System.IO.File.Exists(imgFileName) == false)
             {
@@ -112,8 +127,13 @@ namespace ImageRetrievalEngineUI
             //C++ DLL Communicator로부터 초기화 함수 부르기, 모든 LBP vector 저장해놓기, DLL의 global 상에서... 그리고 Name array of int with ID를 부르기 
         }
 
-        public bool returnRetrievalResult(Mat queryImgROI, int[] imageResult)
+        public bool returnRetrievalResult(Mat queryImgROI)
         {
+            if (isInitRetrieval == false)
+            {
+                MessageBox.Show("Not init retrieval engine...");
+                return false;
+            }
             byte[] myRes = CPlusPlusDLLCommunicator.mat2byteArray(queryImgROI);
 
             int[] ID = new int[CPlusPlusDLLCommunicator.n];
@@ -126,6 +146,8 @@ namespace ImageRetrievalEngineUI
                 MessageBox.Show("Wrong with c++ retrieval dll...");
                 return false;
             }
+            updateRetrievalResult(ID, ROISeq);
+
             return true;
         }
 
@@ -136,16 +158,23 @@ namespace ImageRetrievalEngineUI
             for (int i = 0; i < CPlusPlusDLLCommunicator.n; i++)
             {
                 int imgIdx = ID[i];
-                string totImgFileName = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchImgPath + "/" + searchSpaceIdxMappingTable[imgIdx].fileName;
 
-                Mat currImg = Cv2.ImRead(totImgFileName);
+                //image file의 이름만 포함(확장자 포함)
+                string imgFileName_Ext = searchSpaceIdxMappingTable[imgIdx].fileName;
+
+                //image file의 확장자 포함된 전체 경로
+                string imgFileName_Ext_Full = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchImgPath + "/" + imgFileName_Ext;
+
+                Mat currImg = Cv2.ImRead(imgFileName_Ext_Full);
                 if (currImg.Empty() == true)
                 {
-                    MessageBox.Show("Cannot open image with " + totImgFileName);
+                    MessageBox.Show("Cannot open image with " + imgFileName_Ext_Full);
                     return;
                 }
 
                 //혹여나 시간이 되면 이곳에 ROI를 그려도 좋음
+
+                cc.setTxtbox(cc.myWindow.retrievalImgNameArray[i], imgFileName_Ext);
 
                 cc.drawImage(cc.myWindow.retrievalImgArray[i], currImg);
 
@@ -160,14 +189,20 @@ namespace ImageRetrievalEngineUI
                     return;
                 }
 
-                string roiImgFileName = totImgFileName;
+                string roiImgFileName_Ext = imgFileName_Ext;
 
-                roiImgFileName.Insert(idx_Ext - 1, "_" + searchSpaceIdxMappingTable[imgIdx].roiNumber);
+                int roiIdx = ROI[i];
 
-                Mat currROIImg = Cv2.ImRead(roiImgFileName);
+
+                roiImgFileName_Ext =  roiImgFileName_Ext.Insert(idx_Ext, "_" + roiIdx.ToString());
+
+                string roiImgFileName_Ext_Full = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchROIImgPath + "/" + roiImgFileName_Ext;
+
+
+                Mat currROIImg = Cv2.ImRead(roiImgFileName_Ext_Full);
                 if (currROIImg.Empty() == true)
                 {
-                    MessageBox.Show("Cannot open image with " + roiImgFileName);
+                    MessageBox.Show("Cannot open image with " + roiImgFileName_Ext_Full);
                     return;
                 }
 

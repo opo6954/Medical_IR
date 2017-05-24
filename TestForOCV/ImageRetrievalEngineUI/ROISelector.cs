@@ -24,6 +24,7 @@ namespace ImageRetrievalEngineUI
     {
         CenterController cc;
         bool isStartROI = false;
+        public bool isGetROI = false;
         bool isROIMode = false;//ROI 버튼을 눌러서 ROI 모드일 시 true임
 
         bool isROICreateMode=false;//ROI 새로 만드는 거 확인하는 플래그
@@ -55,6 +56,11 @@ namespace ImageRetrievalEngineUI
         }
         public bool enterModifyROIMode()
         {
+            if (cc.loader.isLoadImage == false)
+            {
+                MessageBox.Show("Modifiy ROI after image load...");
+                return false;
+            }
             if (isROIModifyMode == false)
             {
                 isROIModifyMode = true;
@@ -66,20 +72,36 @@ namespace ImageRetrievalEngineUI
 
         public bool enterCreateROIMode()
         {
+            if (cc.loader.isLoadImage == false)
+            {
+                MessageBox.Show("Set ROI after image load...");
+                return false;
+            }
             if (isROICreateMode == false)
             {
-                isROICreateMode = true;
-
-                if (cc.queryImgMat.Empty() == false)
+                if (isGetROI == false)
                 {
-                    resX = cc.queryImgMat.Size().Width;
-                    resY = cc.queryImgMat.Size().Height;
+                    startPos.X = 0;
+                    startPos.Y = 0;
+                    isROICreateMode = true;
 
-                    imgX = System.Convert.ToInt32(cc.myWindow.ZoomedImage.ActualWidth);
-                    imgY = System.Convert.ToInt32(cc.myWindow.ZoomedImage.ActualHeight);
 
+                    if (cc.queryImgMat.Empty() == false)
+                    {
+                        resX = cc.queryImgMat.Size().Width;
+                        resY = cc.queryImgMat.Size().Height;
+
+                        imgX = System.Convert.ToInt32(cc.myWindow.ZoomedImage.ActualWidth);
+                        imgY = System.Convert.ToInt32(cc.myWindow.ZoomedImage.ActualHeight);
+
+                    }
+                    return true;
                 }
-                return true;
+                else
+                {
+                    MessageBox.Show("Already exist registered ROI... Please delete and retry...");
+                    return false;
+                }
             }
             else
             {
@@ -91,6 +113,9 @@ namespace ImageRetrievalEngineUI
         {
             if (isStartROI == false && isROICreateMode == true)
             {
+                startPos.X = 0;
+                startPos.Y = 0;
+
                 startPos = pos;
                 isStartROI = true;
                 return true;
@@ -101,9 +126,6 @@ namespace ImageRetrievalEngineUI
 
         public bool isMoveROI(System.Windows.Point pos)
         {
-            
-            cc.setTxtbox(cc.myWindow.ROIPos, System.Convert.ToInt32(pos.X).ToString() + " , " + System.Convert.ToInt32(pos.Y).ToString());
-
             if (isStartROI == true)
             {
                 lastPos = pos;
@@ -122,8 +144,8 @@ namespace ImageRetrievalEngineUI
                 rectangle.Width = width;
                 rectangle.Height = height;
 
-                cc.setTxtbox(cc.myWindow.ROISize, width.ToString() + " / " +  height.ToString());
-                cc.setTxtbox(cc.myWindow.ROIPos, x.ToString() + " , " + y.ToString());
+                cc.setTxtbox(cc.myWindow.ROISize, width.ToString() + " X " +  height.ToString());
+                cc.setTxtbox(cc.myWindow.ROIPos, System.Convert.ToInt32(startPos.X) + "," + System.Convert.ToInt32(startPos.Y) + "," + System.Convert.ToInt32(lastPos.X) +  "," + System.Convert.ToInt32(lastPos.Y));
 
 
                 cc.drawRectangle(cc.myWindow.ROIDrawCanvas,rectangle,x,y);
@@ -164,7 +186,7 @@ namespace ImageRetrievalEngineUI
 
 
                 cc.setTxtbox(cc.myWindow.ROISize, currROIOnImage.w.ToString() + " / " + currROIOnImage.h.ToString());
-
+                isGetROI = true;
 
                 calculateROI();
                 sendROI();
@@ -184,6 +206,14 @@ namespace ImageRetrievalEngineUI
 
         public bool deleteROI()
         {
+            if (cc.loader.isLoadImage == false)
+            {
+                MessageBox.Show("Set ROI after image load...");
+                return false;
+            }
+
+            isGetROI = false;
+
             currROI.x = -1;
             currROI.y = -1;
             currROI.w = -1;
