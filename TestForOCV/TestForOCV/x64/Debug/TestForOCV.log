@@ -1,11 +1,11 @@
-﻿빌드 시작: 2017-05-23 오후 10:25:48
+﻿빌드 시작: 2017-05-24 오후 9:59:34
      1>2 노드의 "D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\TestForOCV\TestForOCV.vcxproj" 프로젝트(Build 대상)입니다.
        프로젝트 파일에 ToolsVersion="14.0"이(가) 들어 있습니다. 이 도구 집합은 알 수 없거나 누락되었을 수 있습니다. 이 경우 적절한 버전의 MSBuild를 설치하여 이 문제를 해결할 수 있습니다. 그렇지 않으면 빌드가 정책상의 이유로 특정 ToolsVersion이 될 수 있습니다. 프로젝트에 ToolsVersion="4.0"이 들어 있는 것으로 간주합니다. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkId=291333을 참조하십시오.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../3rd/ocv/inc /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt Euclidean.cpp
-         Euclidean.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I../3rd/ocv/inc /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.exe" /INCREMENTAL /NOLOGO /LIBPATH:../3rd/ocv/lib opencv_calib3d2410d.lib opencv_contrib2410d.lib opencv_core2410d.lib opencv_highgui2410d.lib opencv_imgproc2410d.lib opencv_features2d2410.lib opencv_video2410d.lib opencv_nonfree2410d.lib opencv_flann2410d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.lib" /MACHINE:X64 x64\Debug\Euclidean.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.exe" /INCREMENTAL /NOLOGO /LIBPATH:../3rd/ocv/lib /LIBPATH:../x64/Debug opencv_calib3d2410d.lib opencv_contrib2410d.lib opencv_core2410d.lib opencv_highgui2410d.lib opencv_imgproc2410d.lib opencv_features2d2410.lib opencv_video2410d.lib opencv_nonfree2410d.lib opencv_flann2410d.lib RetrievalEngineDll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.lib" /MACHINE:X64 x64\Debug\Euclidean.obj
          x64\Debug\LBP.obj
          x64\Debug\main.obj
          TestForOCV.vcxproj -> D:\1mythings\study\research\medical_project\1st\1Implementation\Medical_IR\TestForOCV\x64\Debug\TestForOCV.exe
@@ -13,4 +13,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:01.35
+경과 시간: 00:00:01.45

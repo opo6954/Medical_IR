@@ -18,6 +18,7 @@ namespace ImageRetrievalEngineUI
         public Image queryImg;
         public Mat queryimgMat;
         CenterController cc;
+        public bool isLoadImage = false;
 
         public ImageLoader(CenterController _cc)
         {
@@ -48,6 +49,8 @@ namespace ImageRetrievalEngineUI
             cc.setTxtbox(cc.myWindow.FileNameBox, tmpStr[tmpStr.Length-1]);
             cc.setTxtbox(cc.myWindow.TypeNameBox, "CXR");
             cc.setTxtbox(cc.myWindow.ResolutionBox, queryImg.Size.Width.ToString() + " X " + queryImg.Size.Height.ToString());
+
+            isLoadImage = true;
             
             return true;
              

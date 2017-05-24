@@ -61,6 +61,30 @@ namespace ImageRetrievalEngineUI
             return loader.loadImage(filePath);
         }
 
+        public bool retrievalImage()
+        {
+            if (loader.isLoadImage == false)
+            {
+                MessageBox.Show("No image load...");
+                return false;
+            }
+
+            if (selector.isGetROI == false)
+            {
+                MessageBox.Show("No ROI region is selected...");
+                return false;
+            }
+            if (queryImgMat_ROI.Empty() == true)
+            {
+                MessageBox.Show("Query Image ROI not found...");
+                return false;
+            }
+
+            retriever.returnRetrievalResult(queryImgMat_ROI);
+
+            return true;
+        }
+
         //for zooming image...
         public double zoomingWithWheel(int delta)
         {

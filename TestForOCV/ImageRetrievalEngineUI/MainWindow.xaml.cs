@@ -23,6 +23,10 @@ namespace ImageRetrievalEngineUI
         CenterController cc;
         DebugWindow debug;
 
+        public System.Windows.Controls.Image[] retrievalImgArray;
+        public System.Windows.Controls.Image[] retrievalROIImgArray;
+        public System.Windows.Controls.TextBlock[] retrievalImgNameArray;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +34,34 @@ namespace ImageRetrievalEngineUI
             cc = new CenterController(this);
             debug = new DebugWindow();
             debug.Show();
+
+            retrievalImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.n];
+            retrievalROIImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.n];
+            retrievalImgNameArray = new System.Windows.Controls.TextBlock[CPlusPlusDLLCommunicator.n];
+
+            retrievalImgNameArray[0] = SearchImg1Name;
+            retrievalImgNameArray[1] = SearchImg2Name;
+            retrievalImgNameArray[2] = SearchImg3Name;
+            retrievalImgNameArray[3] = SearchImg4Name;
+            retrievalImgNameArray[4] = SearchImg5Name;
+
+
+            retrievalImgArray[0] = SearchImg1;
+            retrievalImgArray[1] = SearchImg2;
+            retrievalImgArray[2] = SearchImg3;
+            retrievalImgArray[3] = SearchImg4;
+            retrievalImgArray[4] = SearchImg5;
+
+            retrievalROIImgArray[0] = SearchROIImg1;
+            retrievalROIImgArray[1] = SearchROIImg2;
+            retrievalROIImgArray[2] = SearchROIImg3;
+            retrievalROIImgArray[3] = SearchROIImg4;
+            retrievalROIImgArray[4] = SearchROIImg5;
+
+            if (cc.retriever.initSearchVector() == true)
+            {
+                MessageBox.Show("Init success to load feature vector...");
+            }
         }
 
         //click button to image open
@@ -57,7 +89,7 @@ namespace ImageRetrievalEngineUI
         //click button to search Image
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            cc.retrievalImage();
         }
         //Zoom image에서 mousewheel을 할 경우
         private void ZoomedImage_MouseWheel_1(object sender, MouseWheelEventArgs e)
