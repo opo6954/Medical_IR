@@ -23,6 +23,9 @@ namespace ImageRetrievalEngineUI
         CenterController cc;
         DebugWindow debug;
 
+        public System.Windows.Controls.Image[] retrievalImgArray;
+        public System.Windows.Controls.Image[] retrievalROIImgArray;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +33,23 @@ namespace ImageRetrievalEngineUI
             cc = new CenterController(this);
             debug = new DebugWindow();
             debug.Show();
+
+            retrievalImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.n];
+            retrievalROIImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.n];
+
+            retrievalImgArray[0] = SearchImg1;
+            retrievalImgArray[1] = SearchImg2;
+            retrievalImgArray[2] = SearchImg3;
+            retrievalImgArray[3] = SearchImg4;
+            retrievalImgArray[4] = SearchImg5;
+
+            retrievalROIImgArray[0] = SearchROIImg1;
+            retrievalROIImgArray[1] = SearchROIImg2;
+            retrievalROIImgArray[2] = SearchROIImg3;
+            retrievalROIImgArray[3] = SearchROIImg4;
+            retrievalROIImgArray[4] = SearchROIImg5;
+
+
         }
 
         //click button to image open

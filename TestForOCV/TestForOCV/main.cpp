@@ -6,6 +6,7 @@
 
 #include "LBP.h"
 #include "Euclidean.h"
+#include "../RetrievalEngineDll/RetrievalEngine.h"
 
 
 
@@ -25,7 +26,64 @@ Mat loadImg(string fileName);
 vector<Rect> loadROI(string fileName);
 void testImgNROI();
 
+#define DLLTEST
 
+#ifdef DLLTEST
+int main()
+{
+	//trainingSearchSpace("../data/searchImg/", "../data/searchImg/featureVectors/");
+
+	initDescriptors();
+
+	initRetrieval("../data/searchImg/", "../data/searchImg/featureVectors/");
+
+	Mat test = imread("../data/searchImg/ROIIMG/021000107_01Nodule_0.jpg");
+
+	imshow("powerover", test);
+	waitKey(0);
+
+	int* ID = new int[5];
+	int* ROI = new int[5];
+
+	retrievalCurrImage(test.data, test.size().width, test.size().height,5,ID,ROI);
+
+	for(int i=0; i<5; i++)
+	{
+		cout<<i << " th ID: " << ID[i] << endl;
+		cout <<"ROI idx: " << ROI[i] << endl;
+	}
+
+	cout << "powerover" << endl;
+
+	
+
+
+	
+
+	//__declspec(dllexport) bool retrievalCurrImage(unsigned char* img, int width, int height, int n, int* ID, int* ROISeq);
+	
+
+
+	/*
+	//특정 폴더 안에 있는 ROI의 LBP vector를 추출해서 저장하기(학습하기)
+	//DLL상으로는 전체 function만 노출시키고 내부적으로는 1개 image vector 저장 등의 작업을 거치자
+	//bool trainingSearchSpace(const char* _imageInputRootPath, const char* _vectorOutputRootPath)
+	__declspec(dllexport) bool trainingSearchSpace(const char* _imageInputRootPath, const char* _vectorOutputRootPath);
+
+	//Retrieval 초기화(저장된 LBP descriptor 가져오기
+	__declspec(dllexport) bool initRetrieval(const char* _imageInputRootPath, const char* _vectorOutputRootPath);
+
+	//Descriptor 초기화이긴 한데 일단 C++상에서만 처리해도 될듯...
+	__declspec(dllexport) bool initDescriptors();
+
+	//image를 input으로 주면 가장 비슷한 n개의 image를 리턴함
+	__declspec(dllexport) bool retrievalCurrImage(unsigned char* img, int width, int height, int n, int* ID, int* ROISeq);
+	*/
+	return 0;
+}
+#endif
+
+#ifdef LBPANDDISTANCETEST
 int main()
 {
 
@@ -97,6 +155,7 @@ int main()
 
 	return 0;
 }
+#endif
 
 
 
