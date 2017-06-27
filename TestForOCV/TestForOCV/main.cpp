@@ -3,6 +3,7 @@
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
 #include <opencv2\imgproc\imgproc.hpp>
+#include <opencv2\nonfree\nonfree.hpp>
 
 #include "LBP.h"
 #include "Euclidean.h"
@@ -29,16 +30,77 @@ void testImgNROI();
 #define DLLTEST
 
 #ifdef DLLTEST
+
+
+
+void siftTest(Mat testImg)
+{
+
+
+	
+
+	imshow("Original image",testImg);
+	waitKey(0);
+
+		cv::SURF s;
+
+	
+	vector<KeyPoint> kps_db;
+	
+	cout << "detect kp in sift...." << endl;
+	s.detect(testImg, kps_db);
+
+	cout << "Detect kp number: " << kps_db.size() << endl;
+
+	
+
+	
+
+	
+
+	for(int i=0; i<kps_db.size(); i++)
+	{
+		cv::circle(testImg,kps_db[i].pt,2,Scalar::all(0.3));
+	}
+
+	imshow("SIFT res",testImg);
+	waitKey(0);
+	
+
+}
+
 int main()
 {
 	//trainingSearchSpace("../data/searchImg/", "../data/searchImg/featureVectors/");
 
+	
+
+	/*
 	initDescriptors();
-
 	initRetrieval("../data/searchImg/", "../data/searchImg/featureVectors/");
+	*/
 
-	Mat test = imread("../data/searchImg/ROIIMG/021000107_01Nodule_0.jpg");
+	cout << "load image..." << endl;
+	
+	
+	Mat test = imread("../data/searchImg/IMG/011000286_01Nodule.jpg");
 
+	Mat test_ROI = imread("../data/searchImg/ROIIMG/021000107_01Nodule_0.jpg");
+
+	siftTest(test);
+	siftTest(test_ROI);
+
+
+	//Mat test = imread("D:/lena.bmp");
+
+
+	//cv::resize(test,test,Size(640,480));
+
+
+	
+	
+
+	/*
 	imshow("powerover", test);
 	waitKey(0);
 
@@ -52,13 +114,7 @@ int main()
 		cout<<i << " th ID: " << ID[i] << endl;
 		cout <<"ROI idx: " << ROI[i] << endl;
 	}
-
-	cout << "powerover" << endl;
-
-	
-
-
-	
+	*/
 
 	//__declspec(dllexport) bool retrievalCurrImage(unsigned char* img, int width, int height, int n, int* ID, int* ROISeq);
 	
