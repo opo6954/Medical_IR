@@ -71,3 +71,5 @@ TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/ImageRetrievalEngineUI_MarkupCom
 *.user
 *.db
 *.opendb
+*.cache
+*.cache
