@@ -81,3 +81,11 @@ TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/ImageRetrievalEngineUI_MarkupCom
 *.exp
 *.ilk
 TestForOCV/TestForOCV.opensdf
+*.log
+*.tlog
+*.sdf
+*.obj
+*.suo
+*.exe
+*.ilk
+*.pdb

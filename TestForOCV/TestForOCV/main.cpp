@@ -88,16 +88,20 @@ int main()
 
 	Mat test_ROI = imread("../data/searchImg/ROIIMG/021000107_01Nodule_0.jpg");
 
-	BoVW bovw;
+	BoVW bovw(2000,100);
+	//bovw.BoVW_maker();
 	bovw.BoVW_Init();
 	int retrieve = 4;
 	vector<string> matched_img = bovw.BoVW_matcher(test,4);
+	ofstream result("result.txt");
 	for(int i=0;i<retrieve;i++)
 	{
 		cout<<matched_img[i]<<endl;
+		result << matched_img[i]<<endl;
 	}
-	//siftTest(test);
-	//siftTest(test_ROI);
+	result.close();
+	siftTest(test);
+	siftTest(test_ROI);
 
 
 	//Mat test = imread("D:/lena.bmp");
