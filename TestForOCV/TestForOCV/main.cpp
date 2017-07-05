@@ -7,6 +7,7 @@
 
 #include "LBP.h"
 #include "Euclidean.h"
+#include "BoVW.h"
 #include "../RetrievalEngineDll/RetrievalEngine.h"
 
 
@@ -37,26 +38,26 @@ void siftTest(Mat testImg)
 {
 
 
-	
+
 
 	imshow("Original image",testImg);
 	waitKey(0);
 
-		cv::SURF s;
+	cv::SURF s;
 
-	
+
 	vector<KeyPoint> kps_db;
-	
+
 	cout << "detect kp in sift...." << endl;
 	s.detect(testImg, kps_db);
 
 	cout << "Detect kp number: " << kps_db.size() << endl;
 
-	
 
-	
 
-	
+
+
+
 
 	for(int i=0; i<kps_db.size(); i++)
 	{
@@ -65,7 +66,7 @@ void siftTest(Mat testImg)
 
 	imshow("SIFT res",testImg);
 	waitKey(0);
-	
+
 
 }
 
@@ -73,7 +74,7 @@ int main()
 {
 	//trainingSearchSpace("../data/searchImg/", "../data/searchImg/featureVectors/");
 
-	
+
 
 	/*
 	initDescriptors();
@@ -81,14 +82,22 @@ int main()
 	*/
 
 	cout << "load image..." << endl;
-	
-	
+
+
 	Mat test = imread("../data/searchImg/IMG/011000286_01Nodule.jpg");
 
 	Mat test_ROI = imread("../data/searchImg/ROIIMG/021000107_01Nodule_0.jpg");
 
-	siftTest(test);
-	siftTest(test_ROI);
+	BoVW bovw;
+	bovw.BoVW_Init();
+	int retrieve = 4;
+	vector<string> matched_img = bovw.BoVW_matcher(test,4);
+	for(int i=0;i<retrieve;i++)
+	{
+		cout<<matched_img[i]<<endl;
+	}
+	//siftTest(test);
+	//siftTest(test_ROI);
 
 
 	//Mat test = imread("D:/lena.bmp");
@@ -97,8 +106,8 @@ int main()
 	//cv::resize(test,test,Size(640,480));
 
 
-	
-	
+
+
 
 	/*
 	imshow("powerover", test);
@@ -111,13 +120,13 @@ int main()
 
 	for(int i=0; i<5; i++)
 	{
-		cout<<i << " th ID: " << ID[i] << endl;
-		cout <<"ROI idx: " << ROI[i] << endl;
+	cout<<i << " th ID: " << ID[i] << endl;
+	cout <<"ROI idx: " << ROI[i] << endl;
 	}
 	*/
 
 	//__declspec(dllexport) bool retrievalCurrImage(unsigned char* img, int width, int height, int n, int* ID, int* ROISeq);
-	
+
 
 
 	/*
@@ -162,12 +171,12 @@ int main()
 	rectangle(img,myROI[0],Scalar::all(50),3);
 
 	Mat resizeImg;
-	
+
 	resize(img,resizeImg,Size(img.size().width/2, img.size().height/2));
 
 
-	
-	
+
+
 	imshow("testImg",resizeImg);
 	waitKey(0);
 
