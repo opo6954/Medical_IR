@@ -93,3 +93,5 @@ TestForOCV/TestForOCV.opensdf
 *.suo
 *.obj
 *.tlog
+*.tlog
+*.obj

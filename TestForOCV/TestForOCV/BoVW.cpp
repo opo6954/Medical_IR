@@ -17,7 +17,10 @@
 using namespace cv;
 using namespace std;
 
-
+//Constructor of BoVW
+//parameter:
+//	words: number of visual words
+//	numImages: number of total images
 BoVW::BoVW(int words, int numImages)
 {
 	NUMVOCAB=words;
@@ -28,15 +31,19 @@ BoVW::BoVW(int words, int numImages)
 	score.resize(numDocument);
 }
 
+//Makes visual words from images in database
 void BoVW::BoVW_maker()
 {
+	//image directory
 	string img_dir = "../../DB/Chest_PA_nodule_mask_100case_20170428/jpeg/";
 	vector<KeyPoint> kps_db;
 	vector<KeyPoint> total_sift;
+	//file which contains image names
 	ifstream Img_list;
 	char name[50];
 	Img_list.open(img_dir + "img_list.txt");
 
+	//sift detector
 	cv::SIFT s; 
 	Mat descriptor;
 	Mat features_unclustered;
@@ -45,9 +52,11 @@ void BoVW::BoVW_maker()
 		Mat img =imread(img_dir+name);
 		s.detect(img,kps_db);
 		s.compute(img,kps_db,descriptor);
+		//collects features extracted from images
 		features_unclustered.push_back(descriptor);
 		cout <<name <<" extracted"<<endl;
 	}
+
 	Img_list.close();
 	int bag_size= NUMVOCAB;
 
@@ -56,18 +65,23 @@ void BoVW::BoVW_maker()
 	int retries =1;
 	int flags=KMEANS_PP_CENTERS;
 
+	//clustering
 	BOWKMeansTrainer bowTrainer(bag_size,tc,retries,flags);
 	Mat dictionary = bowTrainer.cluster(features_unclustered);
 
+	//save visual words
 	FileStorage fs("dictionary.yml",FileStorage::WRITE);
 	fs << "vocabulary" <<dictionary;
 	fs.release();
 
 }
 
+
+//BoVW initializing TF-IDF
+//Needs to call before matching images
 void BoVW::BoVW_Init()
 {
-
+	//read BoVW 
 	FileStorage fs("dictionary.yml",FileStorage::READ);
 	fs["vocabulary"] >> dictionary;
 	fs.release();
@@ -88,6 +102,7 @@ void BoVW::BoVW_Init()
 	numDocument=0;
 	while(Img_list.getline(name,sizeof(name)))
 	{
+		//get image descriptor
 		Mat img =imread(img_dir+name);
 		Mat indices, dists;
 		s.detect(img,kps_db);
@@ -97,6 +112,7 @@ void BoVW::BoVW_Init()
 		kps_db.empty();
 		kdTree.knnSearch(descriptor,indices,dists,1,cv::flann::SearchParams(64));
 
+		//making tf-idf records
 		ClearF();
 		for (int j = 0; j < indices.rows; j++)
 		{
@@ -109,6 +125,9 @@ void BoVW::BoVW_Init()
 		numDocument++;
 	}
 	Img_list.close();
+
+	/* for comments I marked under can be use when the inverted File needs to be saved*/
+
 	//ofstream idfFile("idf.txt");
 	//ofstream tfFile("tf.txt");
 	for (int i = 0; i < NUMVOCAB; i++)
@@ -129,11 +148,15 @@ void BoVW::BoVW_Init()
 	*/
 }
 
-
+//Constructor of BoVW
+//parameter:
+//	img: input images
+//	number: number of top similar images to see
+//	return: a list of name of similar images
 vector<string> BoVW::BoVW_matcher(Mat img,int number)
 {
 
-	/*if saving invertedfile
+	/*if invertedfile has been saved
 	ifstream idfFile("idf.txt");
 	ifstream tfFile("tf.txt");
 	for (int i = 0; i < NUMVOCAB; i++)
@@ -157,6 +180,14 @@ vector<string> BoVW::BoVW_matcher(Mat img,int number)
 			previews = node.image;
 		}
 	}
+	FileStorage fs("dictionary.yml",FileStorage::READ);
+	fs["vocabulary"] >> dictionary;
+	fs.release();
+
+	//KD tree
+	flann::KDTreeIndexParams indexParams(8);
+	kdTree.build(dictionary,indexParams,cvflann::FLANN_DIST_L1);kdTree.knnSearch(descriptor,indices,dists,1,cv::flann::SearchParams(32));
+
 	*/
 
 
@@ -167,19 +198,13 @@ vector<string> BoVW::BoVW_matcher(Mat img,int number)
 	s.detect(img,kps_db);
 	s.compute(img,kps_db,descriptor);
 	
-	FileStorage fs("dictionary.yml",FileStorage::READ);
-	fs["vocabulary"] >> dictionary;
-	fs.release();
-
-	//KD tree
-	flann::KDTreeIndexParams indexParams(8);
-	kdTree.build(dictionary,indexParams,cvflann::FLANN_DIST_L1);kdTree.knnSearch(descriptor,indices,dists,1,cv::flann::SearchParams(32));
 
 	string img_dir = "../../DB/Chest_PA_nodule_mask_100case_20170428/jpeg/";
 	ifstream Img_list;
 	char name[50];
 	Img_list.open(img_dir + "img_list.txt");
 	int i=0;
+	//saving image names
 	while(Img_list.getline(name,sizeof(name)))
 	{
 		score[i].index=name;
@@ -187,6 +212,8 @@ vector<string> BoVW::BoVW_matcher(Mat img,int number)
 		i++;
 	}
 	Img_list.close();
+
+	//scoring
 	ClearF();
 	for (int i = 0; i < indices.rows; i++)
 	{
@@ -201,6 +228,8 @@ vector<string> BoVW::BoVW_matcher(Mat img,int number)
 				score[it->image].score += (abs(TF - it->TF)-(TF)-(it->TF))*IDF[i];
 			}
 	}
+
+	//rank in ascending order
 	sort(score.begin(), score.end(), compare_score);
 	vector<string> result;
 	for(int j=0;j<number;j++)
