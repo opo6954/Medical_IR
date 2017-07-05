@@ -1,4 +1,5 @@
 #include "LBP.h"
+#include "Feature extractor.h"
 #include <iostream>
 #include  <math.h>                   
 #define PI 3.141592654
