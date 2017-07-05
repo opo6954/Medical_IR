@@ -72,8 +72,6 @@ TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/ImageRetrievalEngineUI_MarkupCom
 *.db
 *.opendb
 *.cache
-*.cache
-*.cache
 *.pdb
 *.exe
 *.tlog
@@ -82,7 +80,6 @@ TestForOCV/ImageRetrievalEngineUI/obj/x64/Debug/ImageRetrievalEngineUI_MarkupCom
 *.ilk
 TestForOCV/TestForOCV.opensdf
 *.log
-*.tlog
 *.sdf
 *.obj
 *.suo
@@ -90,8 +87,4 @@ TestForOCV/TestForOCV.opensdf
 *.ilk
 *.pdb
 *.sdf
-*.suo
-*.obj
 *.tlog
-*.tlog
-*.obj
