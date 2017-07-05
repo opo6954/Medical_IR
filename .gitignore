@@ -89,3 +89,7 @@ TestForOCV/TestForOCV.opensdf
 *.exe
 *.ilk
 *.pdb
+*.sdf
+*.suo
+*.obj
+*.tlog
