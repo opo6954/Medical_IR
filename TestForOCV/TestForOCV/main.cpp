@@ -28,7 +28,44 @@ Mat loadImg(string fileName);
 vector<Rect> loadROI(string fileName);
 void testImgNROI();
 
-#define DLLTEST
+//#define DLLTEST
+#define BOVWTEST
+#ifdef BOVWTEST
+int main()
+{
+	BoVW bovwTest(2000, 80);
+
+	//bovwTest.BoVW_training("../data/searchImg/ROIIMG/", "imgROIList.txt", searchDir + "BoVWTrainingData/");
+	bovwTest.BoVW_training("../data/searchImg/IMG/", "imgList.txt", searchDir + "BoVWTrainingData/");
+
+	/*
+	//BoVW(int words, int numImages);	//constructor
+	int words;
+	int numImages;
+	BoVW bovwTest(2000,100);
+
+	//bovwTest.BoVW_Init();
+	
+
+	Mat testImgMat;
+
+	string testImgName = searchDir + testImg;
+
+	testImgMat = imread(testImgName);
+
+
+	vector<string> queryRes = bovwTest.BoVW_matcher(testImgMat, 5);
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout<<"Result for " << i << " : " << queryRes[i] << endl;
+	}
+	*/
+
+	return 0;
+}
+
+#endif
 
 #ifdef DLLTEST
 
