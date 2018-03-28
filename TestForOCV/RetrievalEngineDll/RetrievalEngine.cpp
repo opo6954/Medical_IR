@@ -381,7 +381,7 @@ bool loadImageROINumberName(vector<int>& _roiNumberVector)
 {
 	ifstream fin = std::ifstream(searchRoiPath + "/" + roiListName, std::ios::in);
 
-	if(fin != NULL)
+	if(fin.is_open() == true)
 	{
 		while(fin.eof() == false)
 		{
@@ -394,7 +394,7 @@ bool loadImageROINumberName(vector<int>& _roiNumberVector)
 
 			std::ifstream finROI(searchRoiPath + "/" + roiId, std::ios::in);
 
-			if(finROI != NULL)
+			if(finROI.is_open() != false)
 			{
 				while(finROI.eof() == false)
 				{
@@ -431,7 +431,7 @@ bool loadImageFileName(vector<string>& _fileNameVector)
 {
 	std::ifstream fin(searchImgPath + "/" + imgListName, std::ios::in);
 
-	if(fin !=  NULL)
+	if(fin.is_open() !=  false)
 	{
 		while(fin.eof() == false)
 		{
