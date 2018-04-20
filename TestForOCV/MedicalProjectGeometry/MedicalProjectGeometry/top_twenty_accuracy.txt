@@ -1,0 +1,2 @@
+ label : 0 number of sample:0 average: -nan(ind)
+ label : 1 number of sample:1 average: 0

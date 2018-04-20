@@ -66,9 +66,6 @@ C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.dll
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.Extensions.dll
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.UserInterface.dll
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.dll.config
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.Blob.dll.config
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.CPlusPlus.dll.config
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csprojResolveAssemblyReference.cache
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\DebugWindow.baml
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\MainWindow.baml
@@ -79,7 +76,5 @@ C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.g.resources
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.Properties.Resources.resources
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csproj.GenerateResource.cache
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csproj.CoreCompileInputs.cache
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csproj.CopyComplete
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.exe
 C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.pdb

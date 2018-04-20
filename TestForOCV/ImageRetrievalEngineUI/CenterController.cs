@@ -35,10 +35,50 @@ namespace ImageRetrievalEngineUI
         public ROISelector selector;
         public ImageZoomer zoomer;
 
+        //LMG
+        public WeightSlider slider;
+
+        public void drawLine(System.Windows.Controls.Canvas canvas, System.Windows.Shapes.Line line, int x, int y)
+        {
+            line.Fill = new SolidColorBrush() { Color = Colors.Black };
+
+
+            canvas.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+                        //canvas에 rectange이 추가되지 않은 경우에만...
+                        canvas.Children.Add(line);
+                    }));
+        }
+
+        public bool deleteLines(System.Windows.Controls.Canvas canvas, List<System.Windows.Shapes.Line> lines)
+        {
+            bool returnValue = true;
+            canvas.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+                        foreach(System.Windows.Shapes.Line line in lines)
+                        {
+                            //canvas에 rectange이 추가되지 않은 경우에만...
+                            if (canvas.Children.Contains(line) == true)
+                            {
+                                canvas.Children.Remove(line);
+                            }
+                            else
+                            {
+                                returnValue = false;
+                                break;
+                            }
+                        }
+                        
+                    }));
+
+            return returnValue;
+        }
+
         public ROIRegion currROI;
-        
-
-
         public Image queryImg;
         public Mat queryImgMat;
         public Mat queryImgMat_ROI;
@@ -51,8 +91,9 @@ namespace ImageRetrievalEngineUI
             retriever = new ImageRetriever(this);
             selector = new ROISelector(this);
             zoomer = new ImageZoomer(this);
+            //LMG
+            slider = new WeightSlider(this);
             myWindow = _myWindow;
-            
         }
 
         //relation between UI and each function
@@ -79,9 +120,17 @@ namespace ImageRetrievalEngineUI
                 MessageBox.Show("Query Image ROI not found...");
                 return false;
             }
+            Tuple<int[], int[]>ret_res = retriever.returnRetrievalResult(queryImgMat_ROI);
+            
+            if (ret_res.Item1 == null || ret_res.Item2 == null)
+            {
+                return false;
+            }
 
-            retriever.returnRetrievalResult(queryImgMat_ROI);
-
+            int[] ID1 = ret_res.Item1;
+            int[] ROISeq1 = ret_res.Item2;
+            
+            retriever.updateRetrievalResult(ID1, ROISeq1);
             return true;
         }
 

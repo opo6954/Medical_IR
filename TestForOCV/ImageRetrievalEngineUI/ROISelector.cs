@@ -12,6 +12,7 @@ using System.Drawing;
 using OpenCvSharp.Extensions;
 using OpenCvSharp.CPlusPlus;
 using OpenCvSharp.UserInterface;
+using System.Windows.Shapes;
 
 /*
  * ROI 선택하는 함수임
@@ -31,7 +32,7 @@ namespace ImageRetrievalEngineUI
         bool isROIModifyMode = false;//ROI 변경하는 거 확인하는 플래그
 
         System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle();
-                
+        List<System.Windows.Shapes.Line> lines = new List<System.Windows.Shapes.Line>();
 
         //ROI 클릭 후 첫 시작 위치
         System.Windows.Point startPos;
@@ -108,15 +109,20 @@ namespace ImageRetrievalEngineUI
                 return false;
             }
         }
+
+        //LMG all modified
         //처음에 ROI 누를 경우, 시작함
         public bool isClickROI(System.Windows.Point pos)
         {
             if (isStartROI == false && isROICreateMode == true)
             {
-                startPos.X = 0;
-                startPos.Y = 0;
 
                 startPos = pos;
+                lastPos = pos;
+
+                rectangle = new System.Windows.Shapes.Rectangle();
+                lines = new List<System.Windows.Shapes.Line>();
+
                 isStartROI = true;
                 return true;
             }
@@ -128,6 +134,23 @@ namespace ImageRetrievalEngineUI
         {
             if (isStartROI == true)
             {
+                Line line = new Line();
+
+                line.Stroke = System.Windows.SystemColors.WindowFrameBrush;
+                line.X1 = pos.X;
+                line.Y1 = pos.Y;
+                line.X2 = pos.X+2;
+                line.Y2 = pos.Y+2;
+
+                lines.Add(line);
+                cc.drawLine(cc.myWindow.ROIDrawCanvas, line, System.Convert.ToInt32(pos.X), System.Convert.ToInt32(pos.Y));
+
+                startPos.X = Math.Min(startPos.X, pos.X);
+                startPos.Y = Math.Min(startPos.Y, pos.Y);
+                lastPos.X = Math.Max(lastPos.X, pos.X);
+                lastPos.Y = Math.Max(lastPos.Y, pos.Y);
+
+                /*
                 lastPos = pos;
 
                 int x = System.Convert.ToInt32(startPos.X);
@@ -146,9 +169,9 @@ namespace ImageRetrievalEngineUI
 
                 cc.setTxtbox(cc.myWindow.ROISize, width.ToString() + " X " +  height.ToString());
                 cc.setTxtbox(cc.myWindow.ROIPos, System.Convert.ToInt32(startPos.X) + "," + System.Convert.ToInt32(startPos.Y) + "," + System.Convert.ToInt32(lastPos.X) +  "," + System.Convert.ToInt32(lastPos.Y));
-
-
+                
                 cc.drawRectangle(cc.myWindow.ROIDrawCanvas,rectangle,x,y);
+                */
 
                 return true;
             }
@@ -159,13 +182,31 @@ namespace ImageRetrievalEngineUI
         {
             if (isStartROI == true)
             {
-                
-                lastPos = pos;
+                //LMG
+                int x = System.Convert.ToInt32(startPos.X);
+                int y = System.Convert.ToInt32(startPos.Y);
+                int width = System.Convert.ToInt32(Math.Abs(lastPos.X - startPos.X));
+                int height = System.Convert.ToInt32(Math.Abs(lastPos.Y - startPos.Y));
+
+                rectangle.Width = width;
+                rectangle.Height = height;
+
+                cc.setTxtbox(cc.myWindow.ROISize, width.ToString() + " X " + height.ToString());
+                cc.setTxtbox(cc.myWindow.ROIPos, System.Convert.ToInt32(startPos.X) + "," + System.Convert.ToInt32(startPos.Y) + "," + System.Convert.ToInt32(lastPos.X) + "," + System.Convert.ToInt32(lastPos.Y));
+
+                cc.drawRectangle(cc.myWindow.ROIDrawCanvas, rectangle, x, y);
+
+                //lastPos = pos;
 
                 currROI.x = System.Convert.ToInt32(startPos.X);
                 currROI.y = System.Convert.ToInt32(startPos.Y);
                 currROI.w = System.Convert.ToInt32(Math.Abs(lastPos.X - startPos.X));
                 currROI.h = System.Convert.ToInt32(Math.Abs(lastPos.Y - startPos.Y));
+
+                MessageBox.Show("Weight1 : " + startPos.X
+                + "\nWeight2 : " + startPos.Y
+                + "\nWeight3 : " + lastPos.X
+                + "\nWeight4 : " + lastPos.Y);
 
 
                 isROICreateMode = false;
@@ -173,32 +214,17 @@ namespace ImageRetrievalEngineUI
 
                 //이 부분에서 ROI 설정이 모두 된 것 이니까 실제 이미지 상에서의 ROI를 계산하자
 
-
                 currROIOnImage.x = System.Convert.ToInt32((currROI.x / (double)imgX) * resX);
                 currROIOnImage.y = System.Convert.ToInt32((currROI.y / (double)imgY) * resY);
 
                 currROIOnImage.w = System.Convert.ToInt32((currROI.w / (double)imgX) * resX);
                 currROIOnImage.h = System.Convert.ToInt32((currROI.h / (double)imgY) * resY);
 
-                
-
-
-
-
                 cc.setTxtbox(cc.myWindow.ROISize, currROIOnImage.w.ToString() + " / " + currROIOnImage.h.ToString());
                 isGetROI = true;
 
                 calculateROI();
                 sendROI();
-
-
-
-
-                
-
-                
-
-
 
             }
             return true;
@@ -223,7 +249,13 @@ namespace ImageRetrievalEngineUI
 
             cc.drawImage(cc.myWindow.ROIImg, roiRegion.Clone());
 
-            return cc.deleteRectangle(cc.myWindow.ROIDrawCanvas, rectangle);
+            bool r1 = cc.deleteRectangle(cc.myWindow.ROIDrawCanvas, rectangle);
+            bool r2 = cc.deleteLines(cc.myWindow.ROIDrawCanvas, lines);
+
+            if (r1 == false | r2 == false)
+                return false;
+            else
+                return true;
         }
 
         public void calculateROI()

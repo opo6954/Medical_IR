@@ -35,9 +35,9 @@ namespace ImageRetrievalEngineUI
             debug = new DebugWindow();
             debug.Show();
 
-            retrievalImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.n];
-            retrievalROIImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.n];
-            retrievalImgNameArray = new System.Windows.Controls.TextBlock[CPlusPlusDLLCommunicator.n];
+            retrievalImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.ret_n];
+            retrievalROIImgArray = new System.Windows.Controls.Image[CPlusPlusDLLCommunicator.ret_n];
+            retrievalImgNameArray = new System.Windows.Controls.TextBlock[CPlusPlusDLLCommunicator.ret_n];
 
             retrievalImgNameArray[0] = SearchImg1Name;
             retrievalImgNameArray[1] = SearchImg2Name;
@@ -89,8 +89,16 @@ namespace ImageRetrievalEngineUI
         //click button to search Image
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            double[] weight = new double[] { slider1.Value, slider2.Value, slider3.Value, slider4.Value };
+            MessageBox.Show("Weight1 : " + slider1.Value.ToString()
+                + "\nWeight2 : " + slider2.Value.ToString() 
+                + "\nWeight3 : " + slider3.Value.ToString()
+                + "\nWeight4 : " + slider4.Value.ToString());
+            //var map = new Dictionary<int, >(); // k,v
+            cc.slider.weight = weight;
             cc.retrievalImage();
         }
+
         //Zoom image에서 mousewheel을 할 경우
         private void ZoomedImage_MouseWheel_1(object sender, MouseWheelEventArgs e)
         {
@@ -162,6 +170,39 @@ namespace ImageRetrievalEngineUI
         private void ZoomedImage_PreviewMouseMove_1(object sender, MouseEventArgs e)
         {
             cc.selector.isMoveROI(e.GetPosition(ROIDrawCanvas));
+        }
+
+        //LMG
+        Point currentPoint = new Point();
+
+        private void ZoomedImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+                currentPoint = e.GetPosition(this);
+        }
+
+        private void ZoomedImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Line line = new Line();
+
+                line.Stroke = SystemColors.WindowFrameBrush;
+                line.X1 = currentPoint.X;
+                line.Y1 = currentPoint.Y;
+                line.X2 = e.GetPosition(this).X;
+                line.Y2 = e.GetPosition(this).Y;
+
+                currentPoint = e.GetPosition(this);
+
+                ROIDrawCanvas.Children.Add(line);
+            }
+        }
+
+        private void TEST_Click(object sender, RoutedEventArgs e)
+        {
+            GeometryTest gt = new GeometryTest();
+            gt.geometryInit();
         }
     }
 }
