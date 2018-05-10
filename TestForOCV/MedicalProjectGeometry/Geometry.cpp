@@ -126,6 +126,13 @@ void build_geometry(string img_dir, string roi_text, int label, vector<geometric
 		}
 	}
 	//cout << "hist 1:" << peaks.size() << endl;
+
+	if (peaks.size() == 0)
+	{
+		cout << "No peak1_y found on 1..." << endl;
+		return;
+	}
+
 	point1_y = peaks[0];
 	point2_y = peaks[peaks.size() - 1];
 	peaks.clear();
@@ -143,6 +150,12 @@ void build_geometry(string img_dir, string roi_text, int label, vector<geometric
 		}
 	}
 
+	if (peaks.size() == 0)
+	{
+		cout << "No peak2_x found on 1..." << endl;
+		return;
+	}
+
 	point2_x = peaks[0];
 	//cout << "hist 2:" << peaks.size() << endl;
 	peaks.clear();
@@ -155,7 +168,11 @@ void build_geometry(string img_dir, string roi_text, int label, vector<geometric
 		}
 	}
 	//cout << "hist 3:" << peaks.size() << endl;
-
+	if (peaks.size() == 0)
+	{
+		cout << "No peak3_y found on 1..." << endl;
+		return;
+	}
 	point3_y = peaks[0];
 	point4_y = peaks[peaks.size() - 1];
 	peaks.clear();
@@ -173,6 +190,13 @@ void build_geometry(string img_dir, string roi_text, int label, vector<geometric
 			break;
 		}
 	}
+
+	if (peaks.size() == 0)
+	{
+		cout << "No peak4_x found on 1..." << endl;
+		return;
+	}
+
 	//cout << "hist 4:" << peaks.size() << endl;
 	point4_x = peaks[0];
 	//Mat binary, canny, final_image;
@@ -563,8 +587,6 @@ void loadImages(char* images, char* bbox, int length)
 				cout << file << " : " << count << endl;
 				file = file.substr(0, file.length() - 4);
 
-				if (count == 100)
-					cout << "ลอมü" << endl;
 
 				/*
 				if (count == selector[index])
@@ -573,6 +595,7 @@ void loadImages(char* images, char* bbox, int length)
 				index++;
 				}*/
 				//else
+
 				build_geometry(image_dir + file + ".png", roi_text + file + ".txt", z, extractor);
 				count++;
 			}

@@ -69,13 +69,13 @@ namespace ImageRetrievalEngineUI
         extern public static void loadImages([MarshalAs(UnmanagedType.LPStr)] string images, [MarshalAs(UnmanagedType.LPStr)] string bbox, int length);
 
         [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        extern public static char[][] get_top_ten_location([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index);
+        extern public static bool get_top_N_location([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index, StringBuilder img_name, int top_num);
 
         [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        extern public static char[][] get_top_ten_area([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index);//< 해당 테스트 이미지의 넓이가 제일 가까운 열개의 이미지를 불러온다
+        extern public static bool get_top_N_area([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index, StringBuilder img_name, int top_num);//< 해당 테스트 이미지의 넓이가 제일 가까운 열개의 이미지를 불러온다
 
         [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        extern public static char[][] get_top_ten_ratio([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index);//< 해당 테스트 이미지의 비율이 제일 가까운 열개의 이미지를 불러온다
+        extern public static bool get_top_N_ratio([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index, StringBuilder img_name, int top_num);//< 해당 테스트 이미지의 비율이 제일 가까운 열개의 이미지를 불러온다
 
         [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         extern public static void showImage(int index, int rank);

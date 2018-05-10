@@ -96,7 +96,7 @@
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageRetriever.cs" />
-    <Compile Include="GeometryTest.cs" />
+    <Compile Include="GeometryController.cs" />
     <Compile Include="WeightSlider.cs" />
     <Compile Include="ImageZoomer.cs" />
     <Compile Include="ROISelector.cs" />

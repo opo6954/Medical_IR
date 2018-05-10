@@ -37,6 +37,7 @@ namespace ImageRetrievalEngineUI
 
         //LMG
         public WeightSlider slider;
+        public GeometryController geocontroller; 
 
         public void drawLine(System.Windows.Controls.Canvas canvas, System.Windows.Shapes.Line line, int x, int y)
         {

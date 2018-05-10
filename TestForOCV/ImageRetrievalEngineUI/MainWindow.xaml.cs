@@ -201,8 +201,44 @@ namespace ImageRetrievalEngineUI
 
         private void TEST_Click(object sender, RoutedEventArgs e)
         {
-            GeometryTest gt = new GeometryTest();
+            GeometryController gt = new GeometryController();
             gt.geometryInit();
+        }
+
+        private void slider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            String input = String.Format("{0:N2}", cc.myWindow.slider1.Value / 100);
+            cc.setTxtbox(cc.myWindow.SemanticNum, input);
+        }
+
+        private void slider2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            String input = String.Format("{0:N2}", cc.myWindow.slider2.Value / 100);
+            cc.setTxtbox(cc.myWindow.ApparentNum, input);
+        }
+
+        private void slider3_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            String input = String.Format("{0:N2}", cc.myWindow.slider3.Value / 100);
+            cc.setTxtbox(cc.myWindow.ShapeNum, input);
+        }
+
+        private void slider4_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            String input = String.Format("{0:N2}", cc.myWindow.slider4.Value / 100);
+            cc.setTxtbox(cc.myWindow.LocationNum, input);
+        }
+
+        private void slider5_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            String input = String.Format("{0:N2}", cc.myWindow.slider5.Value / 100);
+            cc.setTxtbox(cc.myWindow.SizeNum, input);
+        }
+
+        private void slider6_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            String input = String.Format("{0:N2}", cc.myWindow.slider6.Value / 100);
+            cc.setTxtbox(cc.myWindow.RatioNum, input);
         }
     }
 }

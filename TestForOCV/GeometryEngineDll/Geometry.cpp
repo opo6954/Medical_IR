@@ -515,7 +515,7 @@ geometric getGeometric(string image, Point leftTop, Point rightDown)
 	return temp;
 }
 
-void loadImages(char* images, char* bbox, int length)
+bool loadImages(char* images, char* bbox, int length)
 {
 	ifstream features("features_pool.txt");
 	//ifstream testfeatures("test_pool.txt");
@@ -597,6 +597,7 @@ void loadImages(char* images, char* bbox, int length)
 		test[i].bottom_x << "\t" << test[i].bottom_y << "\t" << test[i].area << "\t" << test[i].ratio << endl;
 		}
 		*/
+		return 0;
 	}
 	else
 	{
@@ -614,28 +615,31 @@ void loadImages(char* images, char* bbox, int length)
 		test.push_back(temp);
 		}
 		*/
+		return 0;
 	}
 
 }
 
-char** get_top_ten_location(const char * test_img, int left, int right, int top, int down, int label[], int index[])
+bool get_top_N_location(const char * test_img, int left, int right, int top, int down, int label[], int index[], char* img_name, int top_num)
 {
 	geometric test = getGeometric(test_img, Point(left, top), Point(right, down));
 	//top 10
-	list<score> top_ten;
-	char* top_list[10];
+	list<score> top_N;
+	//char* top_list[10];
 	score temp;
 	double distance = sqrt(pow((double)abs(test.x - extractor[0].x), 2) + pow((double)abs(test.y - extractor[0].y), 2));
 	temp.name = extractor[0].name;
 	temp.label = extractor[0].label;
 	temp.distance = distance;
 	temp.index = 0;
-	top_ten.insert(top_ten.begin(), temp);
-	for (int i = 1; i < extractor.size(); i++)
+	top_N.insert(top_N.begin(), temp); // extractor 처음꺼 queue에 임시 저장
+
+	cout << "extractor.size " << extractor.size() << endl;
+	for (int i = 1; i < extractor.size(); i++) // extractor : training 대상 값 저장
 	{
-		double distance = sqrt(pow((double)abs(test.x - extractor[i].x), 2) + pow((double)abs(test.y - extractor[i].y), 2));
+		double distance = sqrt(pow((double)abs(test.x - extractor[i].x), 2) + pow((double)abs(test.y - extractor[i].y), 2)); // root(x 차이^2 + y 차이^2)
 		bool insert = false;
-		for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
+		for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
 		{
 			if (iterPos->distance > distance)
 			{
@@ -644,25 +648,47 @@ char** get_top_ten_location(const char * test_img, int left, int right, int top,
 				temp.label = extractor[i].label;
 				temp.distance = distance;
 				temp.index = i;
-				top_ten.insert(iterPos, temp);
+				top_N.insert(iterPos, temp);
 				insert = true;
 				break;
 			}
 		}
-		if (top_ten.size() == 11)
-			top_ten.pop_back();
-		if (top_ten.size() < 10 && insert == false)
+		if (top_N.size() == top_num+1)
+			top_N.pop_back();
+		if (top_N.size() < top_num && insert == false)
 		{
 			score temp;
 			temp.name = extractor[i].name;
 			temp.label = extractor[i].label;
 			temp.distance = distance;
 			temp.index = i;
-			top_ten.insert(top_ten.end(), temp);
+			top_N.insert(top_N.end(), temp);
 		}
 	}
+	cout << "check" << endl;
+	//LMG
+	int i = 0, cur_size = 0;
+	//char* name = (char*)calloc(1, sizeof(char*));
+	for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
+	{
+		cur_size += strlen(iterPos->name.c_str()) + 2;
+		//name = (char*)realloc(name, cur_size);
+		//cout << name << endl;
+		
+		strcat(img_name, iterPos->name.c_str());
+		strcat(img_name, " ");
+		label[i] = iterPos->label;
+		index[i] = iterPos->index;
+		i++;
+		if (i == top_num) // 일정 갯수만 출력
+			break;
+	}
+	//img_name = name;
+	return 0;
+
+	/*
 	int i = 0;
-	for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
+	for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
 	{
 		top_list[i] = (char *)malloc(strlen(iterPos->name.c_str()) + 1);
 		strcpy(top_list[i], iterPos->name.c_str());
@@ -672,27 +698,29 @@ char** get_top_ten_location(const char * test_img, int left, int right, int top,
 		if (i == 10)
 			break;
 	}
+
 	return top_list;
+	*/
 }
 
-char** get_top_ten_area(const char * test_img, int left, int right, int top, int down, int label[], int index[])
+bool get_top_N_area(const char * test_img, int left, int right, int top, int down, int label[], int index[], char* img_name, int top_num)
 {
 	geometric test = getGeometric(test_img, Point(left, top), Point(right, down));
 	//top 10
-	char* top_list[10];
-	list<score> top_ten;
+	//char* top_list[10];
+	list<score> top_N;
 	score temp;
 	double distance = abs((double)(test.area - extractor[0].area) / 5.0);
 	temp.name = extractor[0].name;
 	temp.label = extractor[0].label;
 	temp.distance = distance;
 	temp.index = 0;
-	top_ten.insert(top_ten.begin(), temp);
+	top_N.insert(top_N.begin(), temp);
 	for (int i = 1; i < extractor.size(); i++)
 	{
 		double distance = abs((double)(test.area - extractor[i].area) / 5.0);
 		bool insert = false;
-		for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
+		for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
 		{
 			if (iterPos->distance > distance)
 			{
@@ -701,55 +729,73 @@ char** get_top_ten_area(const char * test_img, int left, int right, int top, int
 				temp.label = extractor[i].label;
 				temp.distance = distance;
 				temp.index = i;
-				top_ten.insert(iterPos, temp);
+				top_N.insert(iterPos, temp);
 				insert = true;
 				break;
 			}
 		}
-		if (top_ten.size() == 11)
-			top_ten.pop_back();
-		if (top_ten.size() < 10 && insert == false)
+		if (top_N.size() == top_num+1)
+			top_N.pop_back();
+		if (top_N.size() < top_num && insert == false)
 		{
 			score temp;
 			temp.name = extractor[i].name;
 			temp.label = extractor[i].label;
 			temp.distance = distance;
 			temp.index = i;
-			top_ten.insert(top_ten.end(), temp);
+			top_N.insert(top_N.end(), temp);
 		}
 	}
+
+	cout << "check" << endl;
+	//LMG
+	int i = 0, cur_size = 0;
+	for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
+	{
+		strcat(img_name, iterPos->name.c_str());
+		strcat(img_name, " ");
+		label[i] = iterPos->label;
+		index[i] = iterPos->index;
+		i++;
+		if (i == top_num) // 일정 갯수만 출력
+			break;
+	}
+	return 0;
+
+	/*
 	int i = 0;
-	for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
+	for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
 	{
 		top_list[i] = (char *)malloc(strlen(iterPos->name.c_str()) + 1);
 		strcpy(top_list[i], iterPos->name.c_str());
 		label[i] = iterPos->label;
 		index[i] = iterPos->index;
 		i++;
-		if (i == 10)
+		if (i == top_num)
 			break;
 	}
 	return top_list;
+	*/
 }
 
-char** get_top_ten_ratio(const char * test_img, int left, int right, int top, int down, int label[], int index[])
+bool get_top_N_ratio(const char * test_img, int left, int right, int top, int down, int label[], int index[], char* img_name, int top_num)
 {
 	geometric test = getGeometric(test_img, Point(left, top), Point(right, down));
 	//top 10
-	char* top_list[10];
-	list<score> top_ten;
+	//char* top_list[10];
+	list<score> top_N;
 	score temp;
 	double distance = (double)abs((test.ratio - extractor[0].ratio)*100.0);
 	temp.name = extractor[0].name;
 	temp.label = extractor[0].label;
 	temp.distance = distance;
 	temp.index = 0;
-	top_ten.insert(top_ten.begin(), temp);
+	top_N.insert(top_N.begin(), temp);
 	for (int i = 1; i < extractor.size(); i++)
 	{
 		double distance = (double)abs((test.ratio - extractor[i].ratio)*100.0);
 		bool insert = false;
-		for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
+		for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
 		{
 			if (iterPos->distance > distance)
 			{
@@ -758,27 +804,28 @@ char** get_top_ten_ratio(const char * test_img, int left, int right, int top, in
 				temp.label = extractor[i].label;
 				temp.distance = distance;
 				temp.index = i;
-				top_ten.insert(iterPos, temp);
+				top_N.insert(iterPos, temp);
 				insert = true;
 				break;
 			}
 		}
-		if (top_ten.size() == 11)
-			top_ten.pop_back();
-		if (top_ten.size() < 10 && insert == false)
+		if (top_N.size() == top_num+1)
+			top_N.pop_back();
+		if (top_N.size() < top_num && insert == false)
 		{
 			score temp;
 			temp.name = extractor[i].name;
 			temp.label = extractor[i].label;
 			temp.distance = distance;
 			temp.index = i;
-			top_ten.insert(top_ten.end(), temp);
+			top_N.insert(top_N.end(), temp);
 		}
 	}
-	int i = 0;
 
+	/*
+	int i = 0;
 	cv::FileStorage fs = cv::FileStorage(test_img, cv::FileStorage::WRITE);
-	for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
+	for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
 	{
 		top_list[i] = (char *)malloc(strlen(iterPos->name.c_str()) + 1);
 		strcpy(top_list[i], iterPos->name.c_str());
@@ -789,7 +836,24 @@ char** get_top_ten_ratio(const char * test_img, int left, int right, int top, in
 			break;
 	}
 	fs.release();
+	*/
 
+	cout << "check" << endl;
+	//LMG
+	int i = 0, cur_size = 0;
+	for (list<score>::iterator iterPos = top_N.begin(); iterPos != top_N.end(); iterPos++)
+	{
+		strcat(img_name, iterPos->name.c_str());
+		strcat(img_name, " ");
+		label[i] = iterPos->label;
+		index[i] = iterPos->index;
+		i++;
+		if (i == top_num) // 일정 갯수만 출력
+			break;
+	}
+	return 0;
+
+	/*
 	for (list<score>::iterator iterPos = top_ten.begin(); iterPos != top_ten.end(); iterPos++)
 	{
 		top_list[i] = (char *)malloc(strlen(iterPos->name.c_str()) + 1);
@@ -801,6 +865,7 @@ char** get_top_ten_ratio(const char * test_img, int left, int right, int top, in
 			break;
 	}
 	return top_list;
+	*/
 }
 
 void showImage(int index, int rank)
