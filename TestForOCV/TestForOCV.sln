@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestForOCV", "TestForOCV\TestForOCV.vcxproj", "{934DF636-133A-4987-90F1-27C2AA36F841}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RetrievalEngineDll", "RetrievalEngineDll\RetrievalEngineDll.vcxproj", "{7A2B667C-B722-4BC1-8D86-186BDDE7DE25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageRetrievalEngineUI", "ImageRetrievalEngineUI\ImageRetrievalEngineUI.csproj", "{71DB2D1E-A9C6-4F90-A18B-33E1DC77E4DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF} = {68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}
+		{7A2B667C-B722-4BC1-8D86-186BDDE7DE25} = {7A2B667C-B722-4BC1-8D86-186BDDE7DE25}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeometryEngineDll", "GeometryEngineDll\GeometryEngineDll.vcxproj", "{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +67,20 @@ Global
 		{71DB2D1E-A9C6-4F90-A18B-33E1DC77E4DF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{71DB2D1E-A9C6-4F90-A18B-33E1DC77E4DF}.Release|Win32.ActiveCfg = Release|Any CPU
 		{71DB2D1E-A9C6-4F90-A18B-33E1DC77E4DF}.Release|x64.ActiveCfg = Release|x64
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|Win32.Build.0 = Debug|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|x64.ActiveCfg = Debug|x64
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Debug|x64.Build.0 = Debug|x64
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|Any CPU.ActiveCfg = Release|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|Win32.ActiveCfg = Release|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|Win32.Build.0 = Release|Win32
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|x64.ActiveCfg = Release|x64
+		{68B54B26-57CA-4BBF-BED6-E0A2D5A226AF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -52,7 +52,7 @@ namespace ImageRetrievalEngineUI
 
             CPlusPlusDLLCommunicator.initDescriptors();
             isInitRetrieval = CPlusPlusDLLCommunicator.initRetrieval(CPlusPlusDLLCommunicator.searchRootPath, CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchVectorPath + "/");
-                
+
 
             string imgFileName = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchImgPath + "/" + CPlusPlusDLLCommunicator.searchImgListName;
             string roiFileName = CPlusPlusDLLCommunicator.searchRootPath + CPlusPlusDLLCommunicator.searchROIPath + "/" + CPlusPlusDLLCommunicator.searchROIListName;
@@ -127,35 +127,36 @@ namespace ImageRetrievalEngineUI
             //C++ DLL Communicator로부터 초기화 함수 부르기, 모든 LBP vector 저장해놓기, DLL의 global 상에서... 그리고 Name array of int with ID를 부르기 
         }
 
-        public bool returnRetrievalResult(Mat queryImgROI)
+        //LMG
+        public Tuple<int[], int[]> returnRetrievalResult(Mat queryImgROI)
         {
             if (isInitRetrieval == false)
             {
                 MessageBox.Show("Not init retrieval engine...");
-                return false;
+                return null;
             }
             byte[] myRes = CPlusPlusDLLCommunicator.mat2byteArray(queryImgROI);
 
-            int[] ID = new int[CPlusPlusDLLCommunicator.n];
-            int[] ROISeq = new int[CPlusPlusDLLCommunicator.n];
+            int[] ID = new int[CPlusPlusDLLCommunicator.ret_n];
+            int[] ROISeq = new int[CPlusPlusDLLCommunicator.ret_n];
 
-            bool isSuccess = CPlusPlusDLLCommunicator.retrievalCurrImage(myRes, queryImgROI.Width, queryImgROI.Height, CPlusPlusDLLCommunicator.n, ID, ROISeq);
+            bool isSuccess = CPlusPlusDLLCommunicator.retrievalCurrImage(myRes, queryImgROI.Width, queryImgROI.Height, CPlusPlusDLLCommunicator.ret_n, ID, ROISeq);
 
             if (isSuccess == false)
             {
                 MessageBox.Show("Wrong with c++ retrieval dll...");
-                return false;
+                return null;
             }
-            updateRetrievalResult(ID, ROISeq);
+            // updateRetrievalResult(ID, ROISeq);
 
-            return true;
+            return new Tuple<int[], int[]>(ID, ROISeq);
         }
 
         //실제 retrieval된 결과를 바탕으로 UI상에 뿌려주기
         //UI상에 알맞는 이미지만 load하면 됨
         public void updateRetrievalResult(int[] ID, int[] ROI)
         {
-            for (int i = 0; i < CPlusPlusDLLCommunicator.n; i++)
+            for (int i = 0; i < CPlusPlusDLLCommunicator.top_k; i++)
             {
                 int imgIdx = ID[i];
 

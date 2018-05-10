@@ -14,6 +14,9 @@ using OpenCvSharp.Extensions;
  * Static class로써 수행함
  * Static으로 불러와야 함
  * */
+
+
+
 namespace ImageRetrievalEngineUI
 {
     class CPlusPlusDLLCommunicator
@@ -32,9 +35,7 @@ namespace ImageRetrievalEngineUI
 
         //search할 vector가 담긴 path임
         public static string searchVectorPath = "featureVectors";
-
         
-
         //search할 ROI의 txt가 담긴 path임
         public static string searchROIPath = "ROI";
 
@@ -44,9 +45,11 @@ namespace ImageRetrievalEngineUI
         //search할 ROI의 image가 담긴 path임
         public static string searchROIImgPath = "ROIIMG";
 
+        //LMG
         //k-nn에서 k의 값임, 즉 5번째까지 가까운 이미지를 가져옴
-        public static int n = 5;
-        
+        public static int top_k = 5; // default 5
+        public static int ret_n = 20; // default 5
+
 
         [DllImport("RetrievalEngineDll.dll", CharSet=CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         extern public static bool trainingSearchSpace([MarshalAs(UnmanagedType.LPStr)] string _imageInputRootPath, [MarshalAs(UnmanagedType.LPStr)] string _vectorOutputRootPath);
@@ -59,6 +62,24 @@ namespace ImageRetrievalEngineUI
 
         [DllImport("RetrievalEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         extern public static bool retrievalCurrImage(byte[] img, int width, int height, int n, int[] ID, int[] ROISeq);
+
+        //geometry
+
+        [DllImport("GeometryEngineDll.dll")]
+        extern public static void loadImages([MarshalAs(UnmanagedType.LPStr)] string images, [MarshalAs(UnmanagedType.LPStr)] string bbox, int length);
+
+        [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        extern public static bool get_top_N_location([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index, StringBuilder img_name, int top_num);
+
+        [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        extern public static bool get_top_N_area([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index, StringBuilder img_name, int top_num);//< 해당 테스트 이미지의 넓이가 제일 가까운 열개의 이미지를 불러온다
+
+        [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        extern public static bool get_top_N_ratio([MarshalAs(UnmanagedType.LPStr)] string test_img, int left, int right, int top, int down, int[] label, int[] index, StringBuilder img_name, int top_num);//< 해당 테스트 이미지의 비율이 제일 가까운 열개의 이미지를 불러온다
+
+        [DllImport("GeometryEngineDll.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        extern public static void showImage(int index, int rank);
+
 
 
         public static byte[] mat2byteArray(Mat m)

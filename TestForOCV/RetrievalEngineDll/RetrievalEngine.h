@@ -15,12 +15,6 @@ extern "C" {
 	일단 img list와 ROI list in text가 있음
 
 	이거를 가지고 c#에서도 읽고 c++에서도 각기 따로 따로 읽어야 함
-
-
-
-
-
-
 	*/
 
 	//특정 폴더 안에 있는 ROI의 LBP vector를 추출해서 저장하기(학습하기)
@@ -36,12 +30,6 @@ extern "C" {
 
 	//image를 input으로 주면 가장 비슷한 n개의 image를 리턴함
 	__declspec(dllexport) bool retrievalCurrImage(unsigned char* img, int width, int height, int n, int* ID, int* ROISeq);
-
-
-
-
-
-
 
 #ifdef __cplusplus
 }
