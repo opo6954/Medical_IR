@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\
+C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\
 ImageRetrievalEngineUI
 none
 false
 DEBUG;TRACE
-C:\Users\mingi\Documents\GitHub\Medical_IR\TestForOCV\ImageRetrievalEngineUI\App.xaml
+C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\App.xaml
 2-844713470
 
-1841260109
-19-262610855
+18-1698081336
+19-1227504773
 DebugWindow.xaml;MainWindow.xaml;
 
 False
