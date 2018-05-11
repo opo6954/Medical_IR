@@ -1,7 +1,10 @@
 ﻿<Window x:Class="ImageRetrievalEngineUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Medical Image Retrieval Engine ver0.1" Height="1000" Width="1000" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight">
+        Title="Medical Image Retrieval Engine ver0.1"
+        Height="1000" 
+        Width="1000"
+        ResizeMode="CanResizeWithGrip">
     <Border BorderBrush="AntiqueWhite" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5">
         <Border.Background>
             <LinearGradientBrush EndPoint="0.5,1.5" StartPoint="0.5,0.03">
@@ -56,10 +59,10 @@
                         <RowDefinition Height="0.2*"/>
                         <RowDefinition Height="0.8*"/>
                     </Grid.RowDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" HorizontalAlignment="Center" Content="Query Image" Grid.Row="0" Margin="0,10,0,0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" HorizontalAlignment="Center" Text="Query Image" Grid.Row="0" Margin="0,10,0,0"></TextBlock>
                     <Image x:Name="QueryImg" Grid.Row="1" Width="200" Height="200" ></Image>
-                    <Button x:Name="OpenImg" FontWeight="ExtraBlack" Background="White"  VerticalAlignment="Center" Content="Open Image" Grid.Row="2" Width="200" Height="30" Click="OpenImg_Click"></Button>
-                    <Grid Grid.Row="3">
+                    <Button x:Name="OpenImg" FontWeight="ExtraBlack" Background="White"  VerticalAlignment="Center" Content="Open Image" Width="200" Grid.Row="2" Click="OpenImg_Click"></Button>
+                    <Grid Grid.Row="3" Margin="0,0,9,9">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
@@ -69,17 +72,17 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="FileName" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="20,0,0,0"></Label>
-                        <Border CornerRadius="5" Background="LightGray"  BorderThickness="1" BorderBrush="Gray"  Grid.Row="0" Grid.Column="1" Margin="10,10,10,10">
+                        <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="FileName" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
+                        <Border CornerRadius="5" Background="LightGray"  BorderThickness="1" BorderBrush="Gray"  Grid.Row="0" Grid.Column="1" Margin="0,3,0,3">
                             <TextBox x:Name="FileNameBox" FontWeight="SemiBold" Foreground="Black" Background="Transparent" BorderThickness="0" IsReadOnly="True" Text="powerover" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1">
                             </TextBox>
                         </Border>
-                        <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Type" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="20,0,0,0"></Label>
-                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="1" Grid.Column="1" Margin="10,10,10,10">
+                        <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Type" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
+                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="1" Grid.Column="1" Margin="0,3,0,3">
                             <TextBox x:Name="TypeNameBox" FontWeight="SemiBold" Foreground="Black"  Background="Transparent" BorderThickness="0"  IsReadOnly="True" Text="whelm" Grid.Row="1" Grid.Column="1"></TextBox>
                         </Border>
-                        <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Resolution" VerticalAlignment="Center" Grid.Row="2" Margin="20,0,0,0"></Label>
-                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="5" Grid.Column="1" Margin="10,10,10,10">
+                        <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Resolution" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2"></TextBlock>
+                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="5" Grid.Column="1">
                             <TextBox x:Name="ResolutionBox" Foreground="Black" BorderThickness="0" Background="Transparent" FontWeight="SemiBold" IsReadOnly="True" Text="ming" ></TextBox>
                         </Border>
                     </Grid>
@@ -90,7 +93,7 @@
                         <RowDefinition Height="2*"></RowDefinition>
                         <RowDefinition Height="1*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" HorizontalAlignment="Center" Grid.Row="0"  Content="ROI Image" Margin="0,10,0,0" ></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" HorizontalAlignment="Center" Grid.Row="0"  Text="ROI Image" Margin="0,10,0,0" ></TextBlock>
                     <Image x:Name="ROIImg" Grid.Row="1" Width="200" Height="200" ></Image>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -109,24 +112,28 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Size" Grid.Row="0" Grid.Column="0"></Label>
-                            <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="0" Grid.Column="1" Margin="10,10,10,10">
-                                <TextBlock  Foreground="Black" Background="Transparent" FontWeight="SemiBold"  x:Name="ROISize" Text="100"></TextBlock>
+                            <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Size" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="0" Grid.Column="1" Margin="0,3,0,3">
+                                <TextBlock  Foreground="Black" Background="Transparent" FontWeight="SemiBold"  x:Name="ROISize" Text="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             </Border>
-                            <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Position" Grid.Row="1" Grid.Column="0"></Label>
-                            <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="1" Grid.Column="1" Margin="10,10,10,10">
-                                <TextBlock Foreground="Black" Background="Transparent"  FontWeight="SemiBold" x:Name="ROIPos" Text="100" ></TextBlock>
+                            <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Position" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="1" Grid.Column="1" Margin="0,3,0,3">
+                                <TextBlock Foreground="Black" Background="Transparent"  FontWeight="SemiBold" x:Name="ROIPos" Text="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             </Border>
                         </Grid>
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1" Margin="0,0,0,6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="NewROI" FontWeight="ExtraBlack" Background="White" Content="New ROI" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Height="30" Margin="0,0,0,0" Click="NewROI_Click_1"></Button>
-                            <Button x:Name="TEST" FontWeight="ExtraBlack" Background="White" Content="" VerticalAlignment="Top" Grid.Column="1" Height="30" Margin="0,0,0,0" HorizontalAlignment="Right" Width="124" Click="TEST_Click" Visibility="Hidden"/>
-                            <Button x:Name="ROI" FontWeight="ExtraBlack" Background="White" Content="Modify ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Height="30" Margin="0,0,0,10" Click="ROI_Click_1"></Button>
-                            <Button x:Name="DeleteROI" FontWeight="ExtraBlack" Background="White" Content="Delete ROI" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Height="30" Margin="0,0,0,10" Click="DeleteROI_Click_1"></Button>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="NewROI" FontWeight="ExtraBlack" Background="White" Content="New ROI" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Click="NewROI_Click_1"></Button>
+                            <Button x:Name="TEST" FontWeight="ExtraBlack" Background="White" Content="" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Right" Click="TEST_Click" Visibility="Hidden"/>
+                            <Button x:Name="ROI" FontWeight="ExtraBlack" Background="White" Content="Modify ROI" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Click="ROI_Click_1"></Button>
+                            <Button x:Name="DeleteROI" FontWeight="ExtraBlack" Background="White" Content="Delete ROI" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Click="DeleteROI_Click_1"></Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -136,14 +143,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" HorizontalAlignment="Center"  Content="Zoomed Image" Grid.Row="0" Margin="0,10,0,0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" HorizontalAlignment="Center"  Text="Zoomed Image" Grid.Row="0" Margin="0,10,0,0"></TextBlock>
                     <ScrollViewer x:Name="myScroll" ScrollChanged="myScroll_ScrollChanged_1" HorizontalScrollBarVisibility="Auto" Margin="0,0,10,0" Grid.Row="1">
                         <Canvas x:Name="ROIDrawCanvas" Width="400" Height="400" AllowDrop="True"  PreviewMouseLeftButtonDown="ZoomedImage_PreviewMouseLeftButtonDown_1" PreviewMouseLeftButtonUp="ZoomedImage_PreviewMouseLeftButtonUp_1" PreviewMouseMove="ZoomedImage_PreviewMouseMove_1" MouseWheel="ZoomedImage_MouseWheel_1">
                             <Image x:Name="ZoomedImage" Stretch="Fill" Width="400" Height="400" AllowDrop="True"/>
                             <Viewbox Height="100" Canvas.Left="162" Canvas.Top="116" Width="100"/>
                         </Canvas>
                     </ScrollViewer>
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="2" Margin="0,5,10,10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
@@ -152,13 +159,13 @@
                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Center Position" Grid.Row="0" Grid.Column="0" Margin="20,0,0,0"></Label>
-                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray" Width="200"  Grid.Row="0" Grid.Column="1" Margin="10,10,10,10">
-                            <TextBlock x:Name="CenterPosition" Foreground="Black" Background="Transparent" FontWeight="SemiBold" Text="NULL" ></TextBlock>
+                        <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Center Position" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray"  Grid.Row="0" Grid.Column="1" Margin="0,1,0,1">
+                            <TextBlock x:Name="CenterPosition" Foreground="Black" Background="Transparent" FontWeight="SemiBold" Text="NULL" VerticalAlignment="Center" ></TextBlock>
                         </Border>
-                        <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Zoomed Scale" Grid.Row="1" Grid.Column="0" Margin="20,0,0,0"></Label>
-                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray" Width="200"  Grid.Row="1" Grid.Column="1" Margin="10,10,10,10">
-                            <TextBlock x:Name="ZoomScale" Foreground="Black" Background="Transparent" FontWeight="SemiBold" Text="NULL" ></TextBlock>
+                        <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Zoomed Scale" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Border CornerRadius="5" BorderThickness="1" Background="LightGray"  BorderBrush="Gray" Grid.Row="1" Grid.Column="1" Margin="0,1,0,1">
+                            <TextBlock x:Name="ZoomScale" Foreground="Black" Background="Transparent" FontWeight="SemiBold" Text="NULL" VerticalAlignment="Center"></TextBlock>
                         </Border>
                     </Grid>
                 </Grid>
@@ -183,7 +190,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Semantic" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Semantic" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
                     <TextBlock x:Name="SemanticNum" Foreground="AntiqueWhite" Background="Transparent" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0.0" Grid.Row="0" Grid.Column="1" ></TextBlock>
                 </Grid>
 
@@ -192,7 +199,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Apparent" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Apparent" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
                     <TextBlock x:Name="ApparentNum" Foreground="AntiqueWhite" Background="Transparent" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0.0" Grid.Row="0" Grid.Column="1" ></TextBlock>
                 </Grid>
 
@@ -201,7 +208,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Shape" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Shape" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
                     <TextBlock x:Name="ShapeNum" Foreground="AntiqueWhite" Background="Transparent" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0.0" Grid.Row="0" Grid.Column="1" ></TextBlock>
                 </Grid>
 
@@ -210,7 +217,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Location" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
                     <TextBlock x:Name="LocationNum" Foreground="AntiqueWhite" Background="Transparent" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0.0" Grid.Row="0" Grid.Column="1" ></TextBlock>
                 </Grid>
 
@@ -219,7 +226,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Size" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Size" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
                     <TextBlock x:Name="SizeNum" Foreground="AntiqueWhite" Background="Transparent" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0.0" Grid.Row="0" Grid.Column="1" ></TextBlock>
                 </Grid>
 
@@ -228,16 +235,16 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Ratio" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></Label>
+                    <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Ratio" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
                     <TextBlock x:Name="RatioNum" Foreground="AntiqueWhite" Background="Transparent" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0.0" Grid.Row="0" Grid.Column="1" ></TextBlock>
                 </Grid>
 
-                <Slider x:Name="slider1" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Grid.Column="0" Width="140" Maximum="100" ValueChanged="slider1_ValueChanged"/>
-                <Slider x:Name="slider2" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Grid.Column="1" Width="140" Maximum="100" ValueChanged="slider2_ValueChanged"/>
-                <Slider x:Name="slider3" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Grid.Column="2" Width="140" Maximum="100" ValueChanged="slider3_ValueChanged"/>
-                <Slider x:Name="slider4" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Grid.Column="3" Width="140" Maximum="100" ValueChanged="slider4_ValueChanged"/>
-                <Slider x:Name="slider5" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Grid.Column="4" Width="140" Maximum="100" ValueChanged="slider5_ValueChanged"/>
-                <Slider x:Name="slider6" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Grid.Column="5" Width="140" Maximum="100" ValueChanged="slider6_ValueChanged"/>
+                <Slider x:Name="slider1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Width="140" Maximum="100" ValueChanged="slider1_ValueChanged"/>
+                <Slider x:Name="slider2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="140" Maximum="100" ValueChanged="slider2_ValueChanged"/>
+                <Slider x:Name="slider3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Width="140" Maximum="100" ValueChanged="slider3_ValueChanged"/>
+                <Slider x:Name="slider4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="140" Maximum="100" ValueChanged="slider4_ValueChanged"/>
+                <Slider x:Name="slider5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="4" Width="140" Maximum="100" ValueChanged="slider5_ValueChanged"/>
+                <Slider x:Name="slider6" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="5" Width="140" Maximum="100" ValueChanged="slider6_ValueChanged"/>
             </Grid>
 
             <Grid Grid.Row="2" Margin="10,10,10,10">
@@ -256,20 +263,23 @@
                     <RowDefinition Height="0.3*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="Search Image" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="37,0"></Label>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="1st" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="66,0"></Label>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="2nd" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="64,0"></Label>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="3rd" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="66,0,65,0"></Label>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="4th" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Margin="65,0"></Label>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="5th" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="4" Margin="65,0,66,0"></Label>
-                <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="ROI Image" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="45,0"></Label>
-                <Button x:Name="SearchButton" FontWeight="ExtraBlack" Background="White" Grid.Row="0" Grid.Column="2" Content="Search for ROI"  HorizontalAlignment="Center" Width="200" Height="30" Click="SearchButton_Click" />
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="Search Image" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="1st" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="2nd" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="3rd" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="4th" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraBold" Text="5th" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="4"></TextBlock>
 
-                <TextBlock FontStretch="Expanded" Foreground="AntiqueWhite"  FontWeight="ExtraLight"  x:Name="SearchImg1Name" Text="null" Grid.Row="4" Grid.Column="0"></TextBlock>
-                <TextBlock FontStretch="UltraExpanded" Foreground="AntiqueWhite"  FontWeight="ExtraLight" x:Name="SearchImg2Name" Text="null" Grid.Row="4" Grid.Column="1"></TextBlock>
-                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraLight" x:Name="SearchImg3Name" Text="null" Grid.Row="4" Grid.Column="2"></TextBlock>
-                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraLight" x:Name="SearchImg4Name" Text="null" Grid.Row="4" Grid.Column="3"></TextBlock>
-                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraLight" x:Name="SearchImg5Name" Text="null" Grid.Row="4" Grid.Column="4"></TextBlock>
+                <Viewbox Grid.Row="3" Grid.Column="0">
+                    <Label Foreground="AntiqueWhite"  FontWeight="ExtraBold" Content="ROI Image" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </Viewbox>
+                <Button x:Name="SearchButton" FontWeight="ExtraBlack" Background="White" Grid.Row="0" Grid.Column="2" Content="Search for ROI"  HorizontalAlignment="Center" Width="200"  Click="SearchButton_Click" />
+
+                <TextBlock FontStretch="Expanded" Foreground="AntiqueWhite"  FontWeight="ExtraLight"  x:Name="SearchImg1Name" HorizontalAlignment="Center" Text="null" Grid.Row="4" Grid.Column="0"></TextBlock>
+                <TextBlock FontStretch="UltraExpanded" Foreground="AntiqueWhite"  FontWeight="ExtraLight" x:Name="SearchImg2Name" HorizontalAlignment="Center" Text="null" Grid.Row="4" Grid.Column="1"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraLight" HorizontalAlignment="Center" x:Name="SearchImg3Name" Text="null" Grid.Row="4" Grid.Column="2"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraLight" HorizontalAlignment="Center" x:Name="SearchImg4Name" Text="null" Grid.Row="4" Grid.Column="3"></TextBlock>
+                <TextBlock Foreground="AntiqueWhite"  FontWeight="ExtraLight" HorizontalAlignment="Center" x:Name="SearchImg5Name" Text="null" Grid.Row="4" Grid.Column="4"></TextBlock>
 
                 <Image x:Name="SearchImg1" Grid.Row="2" Grid.Column="0" Width="150" Height="150"></Image>
                 <Image x:Name="SearchImg2" Grid.Row="2" Grid.Column="1" Width="150" Height="150" />

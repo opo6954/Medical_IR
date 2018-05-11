@@ -88,7 +88,6 @@ C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenC
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.dll
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.Extensions.dll
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\bin\x64\Debug\OpenCvSharp.UserInterface.dll
-C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csprojResolveAssemblyReference.cache
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\DebugWindow.baml
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\MainWindow.baml
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\DebugWindow.g.cs
@@ -98,3 +97,4 @@ C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\Image
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.g.resources
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.Properties.Resources.resources
 C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csproj.GenerateResource.Cache
+C:\pacs\code\ui\Medical_IR\TestForOCV\ImageRetrievalEngineUI\obj\x64\Debug\ImageRetrievalEngineUI.csprojResolveAssemblyReference.cache
